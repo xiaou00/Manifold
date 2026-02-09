@@ -60,8 +60,8 @@ $(M,\mathcal O_M)$, 其中 $M$ 是一个拓扑流形, $\mathcal O_M$ 则是由 $
 
 此时两个转移函数都是形如 $\R^n\supset X\to Y\subset\R^n$ 的映射,
 他们的光滑性就可以通过我们在欧氏空间中定义的光滑函数来定义了. 此时若
-两个函数都是 $C^\dagger$ 的, 则称这两个坐标卡是{\bf $C^\dagger$ 兼容} ($C^\dagger$-compatible)的.
-也就是说, 在两个坐标卡的交集上, 这两个坐标卡的转移函数都是 $C^\dagger$ 的.
+两个函数都是 $C^\dagger$ 的, 则称这两个坐标卡是{\bf $C^\dagger$ 兼容} ($C^\dagger$-compatible)
+的, 也就是说, 在两个坐标卡的交集上, 这两个坐标卡的转移函数都是 $C^\dagger$ 的.
 其中 $\dagger$ 可以是 $0$ (连续), $1$ (可微), $\infty$ (光滑), $\omega$ (解析) 等等.
 
 特别地我们可以简单地规定, 若坐标卡的交集为空集, 那么他们是任意阶相容的.
@@ -271,4 +271,38 @@ $\psi\circ f\circ\varphi^{-1}$ 是一个定义在 $\R^m$ 上的函数, 其在 $\
         &=\frac{\d}{\d t}(\psi\circ\gamma_2)\Big|_{t=0}
     \end{align*}
     这就证明了定理.
+\end{proof}
+
+因此, 切向量的定义是合理的, 不依赖于坐标卡的选取. 这说明切向量是一个内在的概念, 是流形本身固有的属性.
+接下来我们为切空间的定义做准备, 在此之前我们要处理两个存在性的问题. 为了简化表述, 
+设 $M$ 是一个 $m$-微分流形, $p\in M$, 定义
+\[\mathcal S_p=\set{\gamma:(-\epsilon,\epsilon)\to M\mid \gamma(0)=p}\]
+下面的两个引理确保切空间中加法运算和乘法运算的良定义性.
+
+\begin{lemma}
+    设 $M$ 是一个 $m$-微分流形, $p\in M$, $[\gamma_1],[\gamma_2]$
+    是 $M$ 在点 $p$ 处的两个切向量, 则存在 $M$ 上的一条光滑曲线 $\gamma_3\in\mathcal S_p$, 使得
+    \[\frac{\d}{\d t}(\phi\circ\gamma_3)\Big|_{t=0}=\frac{\d}{\d t}(\phi\circ\gamma_1)\Big|_{t=0}+\frac{\d}{\d t}(\phi\circ\gamma_2)\Big|_{t=0}\]
+    其中 $(U,\phi)$ 是包含 $p$ 的任一容许坐标卡. 记作 $[\gamma_3]=[\gamma_1]+[\gamma_2]$.
+\end{lemma}
+\begin{proof}
+    选定一个包含 $p$ 的容许坐标卡 $(U,\phi)$, 则
+    \begin{align*}
+        \mathbf v_1&=\frac{\d}{\d t}(\phi\circ\gamma_1)\Big|_{t=0} \\
+        \mathbf v_2&=\frac{\d}{\d t}(\phi\circ\gamma_2)\Big|_{t=0}
+    \end{align*}
+    是在 $\R^m$ 中的两个向量, 我们的目的是构造一个光滑曲线 $\gamma_3\in\mathcal S_p$, 使得
+    \[\frac{\d}{\d t}(\phi\circ\gamma_3)\Big|_{t=0}=\mathbf v_1+\mathbf v_2\]
+    不妨设
+    \[\sigma(t)=\phi(p)+t(\mathbf v_1+\mathbf v_2)\]
+    显然 $\phi(U)$ 是 $\R^m$ 中的开集且 $\sigma(0)=\phi(p)$.
+    对于充分小的 $(-\epsilon,\epsilon)$, $t\in(-\epsilon,\epsilon)$ 时必然有 $\sigma(t)\in\phi(U)$. 因此我们可以定义
+    \[\gamma_3(t)=\phi^{-1}(\sigma(t))\]
+    使得 $\gamma_3(0)=p$, 从而 $\gamma_3\in\mathcal S_p$. 并且
+    \begin{align*}
+        \frac{\d}{\d t}(\phi\circ\gamma_3)\Big|_{t=0}&=\frac{\d}{\d t}\sigma(t)\Big|_{t=0} \\
+        &=\frac{\d}{\d t}[\phi(p)+t(\mathbf v_1+\mathbf v_2)]\Big|_{t=0} \\
+        &=\mathbf v_1+\mathbf v_2
+    \end{align*}
+    这就证明了引理. 容易证明其不依赖坐标卡的选取.
 \end{proof}
