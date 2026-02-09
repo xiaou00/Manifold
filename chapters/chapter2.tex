@@ -85,3 +85,22 @@ $(M,\mathcal O_M)$, 其中 $M$ 是一个拓扑流形, $\mathcal O_M$ 则是由 $
 
     其中, $\dagger$ 可以是 $0$ (连续), $1$ (可微), $\infty$ (光滑), $\omega$ (解析) 等等.
 \end{definition}
+
+显然, 由于 $\mathcal A$ 是极大的, 我们有如下定理
+
+\begin{theorem}
+    设 $M$ 是一个拓扑流形, $\mathcal A$ 是 $M$ 上的一个 $C^\dagger$-相容的图册,
+    则存在唯一一个 $C^\dagger$-微分结构 $\mathcal A'$ 使得 $\mathcal A\subset\mathcal A'$.
+\end{theorem}
+\begin{proof}
+    我们先证明存在性, 设 $\mathcal A$ 是给定的 $C^\dagger$-相容的图册, 则我们可以定义
+    \[\mathcal A'=\set{(U,\phi)\mid (U,\phi) \text{ 与 }\, \mathcal A \text{相容}}\]
+    此时 $\mathcal A'$ 是 $C^\dagger$-相容的, 且 $\mathcal A\subset\mathcal A'$. 若 $(V,\psi)$ 与 $\mathcal A'$ 相容,
+    由于 $\mathcal A\subset\mathcal A'$, 则 $(V,\psi)$ 与 $\mathcal A$ 中的任意一个坐标卡都相容, 因此 $(V,\psi)\in\mathcal A'$.
+    这说明 $\mathcal A'$ 是 $C^\dagger$-极大的.
+
+    唯一性的证明也很简单, 设 $\mathcal A''$ 是另一个 $C^\dagger$-极大的图册, 且 $\mathcal A\subset\mathcal A''$,
+    则 $\mathcal A''$ 中的任意一个坐标卡 $(V,\psi)$ 都与 $\mathcal A$ 中的任意一个坐标卡相容, 因此 $(V,\psi)\in\mathcal A'$.
+    这说明 $\mathcal A''\subset\mathcal A'$. 同样的, $\mathcal A'$ 中的任意一个坐标卡 $(U,\phi)$ 都与 $\mathcal A$ 中的任意一个坐标卡相容,
+    因此 $(U,\phi)\in\mathcal A''$. 这说明 $\mathcal A'\subset\mathcal A''$. 因此 $\mathcal A'=\mathcal A''$.
+\end{proof}
