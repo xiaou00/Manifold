@@ -436,5 +436,21 @@ $v(f)$ 可以看作是函数 $f$ 在点 $p$ 处沿着切向量 $v$ 的方向的�
     \begin{align*}
         \frac{\d}{\d t}(\phi^i\circ\gamma_1(t))\Big|_{t=0}&=\frac{\d}{\d t}(\phi^i\circ\gamma_2(t))\Big|_{t=0}
     \end{align*}
-    对所有分量成立, 从而对导数向量 $\dfrac{\d}{\d t}(\phi\circ\gamma)\Big|_{t=0}$ 成立. 因此 $[\gamma_1]=[\gamma_2]$. 这说明 $\theta$ 是单射. 另一方面, 对于任意 $v\in T_pM$, 我们仍然可以选取一个包含 $p$ 的容许坐标卡 $(U,\phi)$, 其中 $\phi=(\phi^1,\ldots,\phi^m)$, 则对于任意 $i=1,\ldots,m$, 都有 $v(\phi^i)\in\R$. 因此我们可以定义
+    对所有分量成立, 从而对导数向量 $\dfrac{\d}{\d t}(\phi\circ\gamma)\Big|_{t=0}$ 成立. 因此由定义 $[\gamma_1]=[\gamma_2]$. 
+    这说明 $\theta$ 是单射. 
+    
+    另一方面, 对于任意 $v\in T_pM$, 我们仍然可以选取一个包含 $p$ 的容许坐标卡 $(U,\phi)$,
+    其中 $\phi=(\phi^1,\ldots,\phi^m)$, 则对于任意 $i=1,\ldots,m$, 都有 $v(\phi^i)\in\R$. 因此我们可以定义
+    \[\sigma(t)=(\phi^1(p)+t\cdot v(\phi^1),\ldots,\phi^m(p)+t\cdot v(\phi^m))\]
+    显然 $\phi(U)$ 是 $\R^m$ 中的一个开集且 $\sigma(0)=\phi(p)$.
+    因此对于充分小的 $(-\epsilon,\epsilon)$, $t\in(-\epsilon,\epsilon)$ 时必然有 $\sigma(t)\in\phi(U)$. 因此我们可以定义
+    \[\gamma(t)=\phi^{-1}(\sigma(t))\]
+    使得 $\gamma(0)=p$, 从而 $\gamma\in\mathcal S_p$. 并且对于任意 $f\in C^\infty_p$, 都有
+    \begin{align*}
+        \theta([\gamma])(f)&=\frac{\d}{\d t}(f\circ\gamma(t))\Big|_{t=0} &\text{定义}\\
+        &=\sum_{i=1}^m\frac{\d}{\d t}(\phi^i\circ\gamma(t))\Big|_{t=0}\cdot\frac{\partial f}{\partial \phi^i}(p) &\text{链式法则}\\
+        &=\sum_{i=1}^mv(\phi^i)\cdot\frac{\partial f}{\partial \phi^i}(p) &\\
+        &=v(f) &
+    \end{align*}
+    这说明 $\theta$ 是满射. 因此 $\theta$ 是双射. 这就证明了定理.
 \end{proof}
