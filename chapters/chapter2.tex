@@ -11,7 +11,7 @@ $(M,\mathcal O_M)$, 其中 $M$ 是一个拓扑流形, $\mathcal O_M$ 则是由 $
 
 \section{微分流形}
 
-\subsection{尝试定义微分流形}
+\subsection{定义微分流形}
 
 我们现在手上有拓扑流形这个工具, 他满足每个点都存在邻域和 $\R^n$ 同胚, 
 但这样定义的拓扑流形很可能是粗糙不堪的, 这并不符合我们的美学, 
@@ -112,6 +112,163 @@ $(M,\mathcal O_M)$, 其中 $M$ 是一个拓扑流形, $\mathcal O_M$ 则是由 $
 
 下面的例子是贯彻拓扑学和几何学的重要例子, 也是我们在后续章节中会经常提到的例子.
 
-\begin{example}[球面 $\mathbb S^n$ 与圆盘 $\mathbb D^n$]
-    
+\begin{example}[球面 $S^n$ 与圆盘 $D^n$]
+    {\bf 圆盘} (disk) $D^n$ 是 $\R^n$ 中的一个实心闭单位球, 拓扑为 $\R^n$ 的子空间拓扑, 即
+    \[D^n:=\set{x\in\R^n \mid \|x\|\le 1}\]
+    {\bf 球面} (sphere) $S^n$ 是 $\R^{n+1}$ 中的一个空心单位球面, 拓扑为 $\R^{n+1}$ 的子空间拓扑, 即
+    \[S^n:=\set{x\in\R^{n+1} \mid \|x\|= 1}\]
+    显然有 $\del D^n=S^{n-1}$. $\del$ 在拓扑语境下一般表示的是边界算符, 我们将来也会经常遇到.
 \end{example}
+
+我们想为 $S^n$ 和 $D^n$ 构造一个典范的微分结构.
+$S^n$ 的微分结构可以通过所谓{\bf 球极平面投影} (stereographic projection) 来构造,
+设 $n,s$ 分别是北极和南极, 则我们可以定义如下的两个坐标卡
+\[(S^n\setminus\set{n},p_n),\quad(S^n\setminus\set{s},p_s)\]
+其中 $p_n$ 和 $p_s$ 分别是从北极和南极出发的球极平面投影, 他们的定义如下:
+\begin{align*}
+    p_n:S^n\setminus\set{n}&\to\R^n \\
+    (x_1,\ldots,x_{n+1})&\mapsto\frac{1}{1-x_{n+1}}(x_1,\ldots,x_n)
+\end{align*}
+和
+\begin{align*}
+    p_s:S^n\setminus\set{s}&\to\R^n \\
+    (x_1,\ldots,x_{n+1})&\mapsto\frac{1}{1+x_{n+1}}(x_1,\ldots,x_n)
+\end{align*}
+可以验证, 这两个坐标卡是 $S^n$ 上的坐标卡, 他们的转移函数是 $C^\infty$ 的, 因此这两个坐标卡生成的图册是 $S^n$ 上的一个光滑结构.
+我们提到 $S^n$ 时, 默认其为光滑流形, 且其光滑结构由上述两个坐标卡生成.
+
+至于 $D^n$, 由于 $D^n$ 是 $\R^n$ 的子空间, 因此 $D^n$ 上的微分结构可以直接由 $\R^n$ 上的微分结构诱导得到, 这也是 $D^n$ 上的一个典范微分结构.
+我们提到 $D^n$ 时, 默认其为光滑流形, 且其光滑结构由 $\R^n$ 上的微分结构诱导得到. 并且可以证明 $S^{n-1}$ 作为 $D^n$ 的边界所诱导的微分结构也是 $S^{n-1}$ 上的典范微分结构.
+
+\subsection{光滑映射}
+
+我们已经定义了微分流形, 就像Banach空间, Hilbert空间一样, 微分流形也是欧氏空间的推广.
+与Banach空间和Hilbert空间不同的是, 微分流形并不具有线性结构, 因此我们无法定义微分流形上的线性映射, 但是我们可以定义微分流形之间的光滑映射.
+
+我们可以先定义一个流形到实数的光滑函数.
+
+\begin{definition}[光滑函数]
+    设 $f:M\to\R$ 是定义在微分流形 $M$ 上的一个连续函数, 
+    若对于 $x\in M$, 存在 $M$ 的容许坐标卡 $(U,\phi)$ 使得
+    \[f\circ\phi^{-1}:\phi(U)\to\R\]
+    是在 $\phi(x)$ 处 $C^\infty$ 的函数, 则称函数 $f$ 在
+    $x$ 处光滑. 若 $f$ 在 $M$ 上的每个点处都光滑, 则称 $f$ 是 $M$ 上的一个{\bf 光滑函数} (smooth function).
+\end{definition}
+
+对于 $M$ 上的一个开集 $U$, 我们可以定义 $U$ 上的光滑函数为在 $U$ 的每个点光滑的函数.
+设 $C^\infty(U)$ 是 $U$ 上的所有光滑函数构成的集合, 则 $C^\infty(U)$ 是一个实代数,
+其加法和乘法分别由函数的加法和乘法定义.
+
+并且, 若 $U\hto V$ 是包含关系, 则可以定义限制同态
+\[\rho_{V,U}:C^\infty(V)\to C^\infty(U)\]
+由函数的限制定义. 这样, $C^\infty$ 就是一个定义在 $M$ 的开集上的预层.
+并且不难发现, 若给定 $U$ 的开覆盖 $\set{U_\alpha}_{\alpha\in J}$, 
+则 $C^\infty(U)$ 中的函数 $f_1,f_2$ 若满足对任意 $\alpha$, 
+\[\rho_{U,U_\alpha}(f_1)=\rho_{U,U_\alpha}(f_2)\]
+则 $f_1=f_2$. 若对于每个 $\alpha\in J$ 给定了 $f_\alpha\in C^\infty(U_\alpha)$, 且对于任意 $\alpha,\beta\in J$ 满足
+\[\rho_{U_\alpha,U_\alpha\cap U_\beta}(f_\alpha)=\rho_{U_\beta,U_\alpha\cap U_\beta}(f_\beta)\]
+则存在 $f\in C^\infty(U)$ 使得 $\rho_{U,U_\alpha}(f)=f_\alpha$ 对任意 $\alpha\in J$ 成立. 这说明 $C^\infty$ 是 $M$ 上的一个层.
+
+抛开层论的语言, 我们继续可以定义微分流形之间的光滑映射.
+
+\begin{definition}[光滑映射]
+    设 $M$ 是 $m$-微分流形, $N$ 是 $n$-微分流形, $f:M\to N$ 是一个连续映射,
+    若对于 $x\in M$, 存在 $M$ 的容许坐标卡 $(U,\phi)$ 和 $N$ 的容许坐标卡 $(V,\psi)$, 使得
+    \[\psi\circ f\circ\phi^{-1}:\phi(U\cap f^{-1}(V))\to\psi(V)\]
+    在 $\phi(x)$ 处是 $C^\infty$ 的函数, 则称 $f$ 在 $x$ 处光滑. 
+    若 $f$ 在 $M$ 上的每个点处都光滑, 则称 $f$ 是一个{\bf 光滑映射} (smooth map).
+\end{definition}
+
+\begin{figure}[htbp]
+    \centering
+    \large\begin{tikzcd}[cramped]
+        & M & N \\
+        U &&& V \\
+        {U'} &&& {V'} \\
+        & {\mathbb R^m} & {\mathbb R^n}
+        \arrow["f", from=1-2, to=1-3]
+        \arrow[hook', from=2-1, to=1-2]
+        \arrow["{{\cong,\phi}}"', from=2-1, to=3-1]
+        \arrow[hook, from=2-4, to=1-3]
+        \arrow["{{\psi,\cong}}", from=2-4, to=3-4]
+        \arrow[hook, from=3-1, to=4-2]
+        \arrow[hook', from=3-4, to=4-3]
+        \arrow["{{\psi\circ f\circ\phi^{-1}\in C^\infty}}"', from=4-2, to=4-3]
+    \end{tikzcd}
+    \caption{光滑映射的图表表示}
+\end{figure}
+
+上面的图表表示了光滑映射的定义, 其中 $U$ 和 $V$ 是 $M$ 和 $N$ 上的容许坐标卡,
+$U'$ 和 $V'$ 是 $\R^m$ 和 $\R^n$ 上的开集, $\varphi$ 和 $\psi$ 分别是 $U$ 和 $V$ 的同胚映射,
+$\psi\circ f\circ\varphi^{-1}$ 是一个定义在 $\R^m$ 上的函数, 其在 $\varphi(x)$ 处是 $C^\infty$ 的.
+
+光滑映射到地位在微分流形的理论中至关重要, 这不止是因为它是光滑的, 
+我们可以定义微分流形这个范畴 $\Diff$, 其对象是 $C^\infty$ 流形, 其态射就是光滑映射.
+而 $C^\infty$ 流形是本书的主角.
+
+既然有同态, 同构也得安排上. 其定义已经呼之欲出了.
+
+\begin{definition}[微分同胚]
+    设 $M$ 和 $N$ 是两个微分流形, 若存在 $M$ 到 $N$ 的一个双射 $f$, 且 $f$ 和 $f^{-1}$ 都是光滑映射, 则称 $f$ 是 $M$ 和 $N$ 之间的一个{\bf 微分同胚} (diffeomorphism), 此时称 $M$ 和 $N$ 是{\bf 微分同胚} (diffeomorphic) 的.
+\end{definition}
+
+微分同胚意味着流形具有相同拓扑结构的同时, 还具有相同的微分结构. 这说明微分同胚是一个比拓扑同胚更强的概念, 因此微分同胚也比拓扑同胚更难以满足.
+显然 $\Diff$ 是 $\Top$ 的一个子范畴. 然而他却不是全子范畴, 显然可以存在两个微分流形 $M$ 和 $N$, 使得 $M$ 和 $N$ 是拓扑同胚的, 但 $M$ 和 $N$ 却不是微分同胚的.
+
+\subsection{切向量与切空间}
+
+虽然说, 微分流形没有线性结构, 但是我们可以在微分流形上定义一个局部的线性结构, 这就是切空间 (tangent space).
+切空间的定义有很多种, 其中最为常见的一种定义是通过切向量 (tangent vector) 来定义的. 切向量的定义也有很多种, 我们将介绍几种常见的定义,
+从直观到抽象, 并且证明他们的等价性.
+
+\begin{definition}[光滑曲线]
+    设 $M$ 是一个微分流形, 一个{\bf 光滑曲线} (smooth curve) 是指一个光滑映射
+    \[\gamma:(a,b)\to M\]
+    其中 $(a,b)$ 是 $\R$ 上的一个开区间. 由包含映射赋予自然的微分结构.
+\end{definition}
+
+接下来, 想象你在一个弯曲的纸面上爬行, 类比求导, 你在某个时刻的瞬时速度就是一个切向量,
+因为你被限制在了流形上, 你的路径就是一条曲线. 但他却不完全依赖于你爬行的路径, 
+只要你在那个时刻的瞬时速度相同, 那么你就得到了同一个切向量. 这就是我们定义切向量的第一个想法.
+顺从这个直觉, 我们可以给出第一个版本的定义:
+
+\begin{definition}[切向量 (I)]
+    设 $M$ 是光滑流形, 考虑全体经过点 $p\in M$ 的光滑曲线
+    \[\set{\gamma:(-\epsilon,\epsilon)\to M\mid \gamma(0)=p}\]
+    我们考虑 $(U,\phi)$ 是包含 $p$ 的一个容许坐标卡. 其中 $\phi:U\xto\sim\phi(U)\hto\R^n$.
+    我们可以将曲线 $\gamma(t)$ 映射到 $\R^n$ 上的曲线 $\phi\circ\gamma(t)$.
+    我们可以定义
+    \[\frac{\d}{\d t}(\phi\circ\gamma)\Big|_{t=0}\]
+    的结果是一个 $\R^n$ 中的向量. 这时我们可以定义一个等价关系 $\sim$ 如下:
+    \[\gamma_1\sim\gamma_2\iff\frac{\d}{\d t}(\phi\circ\gamma_1)\Big|_{t=0}=\frac{\d}{\d t}(\phi\circ\gamma_2)\Big|_{t=0}\]
+    则称 $\gamma$ 的等价类 $[\gamma]$ 是点 $p$ 处的一个{\bf 切向量} (tangent vector).
+\end{definition}
+
+我们已经计算出
+\[\frac{\d}{\d t}(\phi\circ\gamma)\Big|_{t=0}\]
+是 $\R^n$ 中的一个向量, 为什么不直接将其作为切向量? 这是因为 $\phi$ 的选取是任意的,
+这么定义的切向量依赖于容许坐标卡的选取, 而通过等价关系拉回到流形上便不依赖选取. 我们可以对于这点给出具体论证:
+
+\begin{theorem}
+    切向量不依赖坐标卡的选取. 即, 设两条光滑曲线 $\gamma_1,\gamma_2:(-\epsilon,\epsilon)\to M$,
+    满足 $\gamma_1(0)=\gamma_2(0)=p$, 若在某个容许坐标卡 $(U,\phi)$ 中
+    \[\frac{\d}{\d t}(\phi\circ\gamma_1)\Big|_{t=0}=\frac{\d}{\d t}(\phi\circ\gamma_2)\Big|_{t=0}\]
+    则在任意一个容许坐标卡 $(V,\psi)$ 中, 都有
+    \[\frac{\d}{\d t}(\psi\circ\gamma_1)\Big|_{t=0}=\frac{\d}{\d t}(\psi\circ\gamma_2)\Big|_{t=0}\]
+\end{theorem}
+\begin{proof}
+    设 $(V,\psi)$ 是另一个包含 $p$ 的容许坐标卡, 则 $V\cap U\ne\O$, 他们之间
+    存在转移函数
+    \[\tau=\psi\circ\phi^{-1}:\phi(U\cap V)\to\psi(U\cap V)\]
+    并且 $\tau$ 是 $C^\infty$ 的. 则对于任意光滑曲线 $\gamma:(-\epsilon,\epsilon)\to M,\,(\gamma(0)=p)$, 显然有
+    \[\frac{\d}{\d t}(\psi\circ\gamma)\Big|_{t=0}=\frac{\d}{\d t}(\tau\circ\phi\circ\gamma)\Big|_{t=0}\]
+    由链式法则, 上式等于
+    \[\mathbf J_{\tau}(\phi(p))\cdot\frac{\d}{\d t}(\phi\circ\gamma)\Big|_{t=0}\]
+    其中Jacobian取在 $\phi(p)$ 是因为 $\phi(p)=\phi(\gamma(0))$. (具体参考链式法则的一般陈述). 分别代入 $\gamma_1$ 和 $\gamma_2$, 
+    \begin{align*}
+        \frac{\d}{\d t}(\psi\circ\gamma_1)\Big|_{t=0}&=\mathbf J_{\tau}(\phi(p))\cdot\frac{\d}{\d t}(\phi\circ\gamma_1)\Big|_{t=0} \\
+        &=\mathbf J_{\tau}(\phi(p))\cdot\frac{\d}{\d t}(\phi\circ\gamma_2)\Big|_{t=0} \\
+        &=\frac{\d}{\d t}(\psi\circ\gamma_2)\Big|_{t=0}
+    \end{align*}
+    这就证明了定理.
+\end{proof}
