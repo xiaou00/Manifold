@@ -1,0 +1,87 @@
+\chapter{微分流形}
+
+微分流形是微分几何的核心对象, 也是我们在本章中要重点讨论的对象.
+我们了解了拓扑流形, 接下来我们要在拓扑流形的基础上, 加入一些微分结构, 从而得到微分流形.
+
+如果你熟悉{\bf 层论} (sheaf theory) 的话, 微分流形无非是一种赋环空间
+$(M,\mathcal O_M)$, 其中 $M$ 是一个拓扑流形, $\mathcal O_M$ 则是由 $C^\infty$ 函数构成的层.
+我们会在de Rham上同调的讨论中回到并更进一步讨论这个定义的优势.
+
+但我们在本章中并不打算使用层论的语言, 因此我们将从一个更为直观的角度来定义微分流形.
+
+\section{微分流形}
+
+\subsection{尝试定义微分流形}
+
+我们现在手上有拓扑流形这个工具, 他满足每个点都存在邻域和 $\R^n$ 同胚, 
+但这样定义的拓扑流形很可能是粗糙不堪的, 这并不符合我们的美学, 
+我们的想法是在上面附加一种能够描述光滑结构的东西, 从而得到微分流形.
+
+在欧氏空间中, 我们知道如何定义光滑函数[\ref{def:smooth_function}], 
+以及光滑函数的微分, 以及微分的链式法则等. 仿照我们定义拓扑流形的哲学,
+我们可以在每个点的邻域上定义一个光滑结构, 也就是说, 在每个点的邻域上定义一个同胚到 $\R^n$ 的图册.
+
+我们想更进一步讨论流形的坐标卡, 我们知道坐标卡本质是一个邻域 $U$ 和同胚映射 $\phi$ 的二元组.
+其中
+\[\phi:U\to\phi(U)\hto\R^n\]
+是同胚, 此时对于点 $p\in U$, 我们称
+\[\Big(\,\pi_1(\phi(p)),\ldots,\pi_n(\phi(p))\,\Big)\]
+为点 $p$ 在该坐标卡下的{\bf 坐标} (coordinate), 其中 $\pi_i$ 是 $\R^n\to\R$ 的第 $i$ 个分量的自然投影.
+严格来说, 这种坐标依赖于同胚的选取, 因此简写我们可记作
+\[(x^1_\phi,\ldots,x^n_\phi)\]
+若无歧义, 则可记为
+\[(x^1,\ldots,x^n)\]
+
+流形中, 我们用坐标卡彻底覆盖了整个流形, 但是一个显然的问题是, 
+这些坐标卡是否互相矛盾? 也就是说, 在两个坐标卡的交集上, 这两个坐标卡的坐标变换是否满足光滑性?
+
+不妨设 $M$ 是 $n$-拓扑流形, $(U,\phi)$ 和 $(V,\psi)$ 是 $M$ 上的两个坐标卡,
+其中 $U\cap V\neq\emptyset$. 那么我们可以定义 $\phi\circ\psi^{-1}$ 和 $\psi\circ\phi^{-1}$ 这两个映射,
+他们分别是 $\psi(V)$ 和 $\phi(U)$ 上的映射, 称之为{\bf 转移函数} (transition function).
+如下图所示, 这两个转移函数的图表表示如下:
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzcd}[cramped]
+        && V && {\psi(V)} \\
+        {U\cap V} &&&&&& {\R^n} \\
+        && U && {\psi(U)}
+        \arrow["{\psi,\cong}", from=1-3, to=1-5]
+        \arrow[hook, from=1-5, to=2-7]
+        \arrow["{\phi\circ\psi^{-1}}"', shift right=2, from=1-5, to=3-5]
+        \arrow[hook, from=2-1, to=1-3]
+        \arrow[hook, from=2-1, to=3-3]
+        \arrow["{\phi,\cong}"', from=3-3, to=3-5]
+        \arrow["{\psi\circ\phi^{-1}}"', shift right=2, from=3-5, to=1-5]
+        \arrow[hook, from=3-5, to=2-7]
+    \end{tikzcd}
+    \caption{$\phi\circ\psi^{-1}$ 和 $\psi\circ\phi^{-1}$ 的图表表示}
+\end{figure}
+
+此时两个转移函数都是形如 $\R^n\supset X\to Y\subset\R^n$ 的映射,
+他们的光滑性就可以通过我们在欧氏空间中定义的光滑函数来定义了. 此时若
+两个函数都是 $C^\dagger$ 的, 则称这两个坐标卡是{\bf $C^\dagger$ 兼容} ($C^\dagger$-compatible)的.
+也就是说, 在两个坐标卡的交集上, 这两个坐标卡的转移函数都是 $C^\dagger$ 的.
+其中 $\dagger$ 可以是 $0$ (连续), $1$ (可微), $\infty$ (光滑), $\omega$ (解析) 等等.
+
+特别地我们可以简单地规定, 若坐标卡的交集为空集, 那么他们是任意阶相容的.
+
+我们称流形 $M$ 的一族坐标卡 $\mathcal A=\set{(U_\alpha, \phi_\alpha)}$ 是一个{\bf 图册} (atlas),
+当且仅当 $\set{U_\alpha}$ 是 $M$ 的一个开覆盖.
+
+就像我们在拓扑空间中指定开集一样, 我们在流形上指定容许坐标卡也是同样的原理,
+现在我们可以给出微分流形的定义了.
+
+\begin{definition}[微分流形]
+    设拓扑流形 $M$ 上的图册 $\mathcal A$, 若
+    \begin{enumerate}
+        \item[M1.] $\mathcal A$ 中的任意两个坐标卡都是 $C^\dagger$ 兼容的;
+        \item[M2.] $\mathcal A$ 是 $C^\dagger$ 极大的, 即若 $(U,\phi)$ 是一个坐标卡, 且与 $\mathcal A$ 中的任意一个坐标卡都是 $C^\dagger$ 兼容的, 则 $(U,\phi)\in\mathcal A$. 
+    \end{enumerate}
+
+    则称 $\mathcal A$ 是 $M$ 上的一个{\bf $C^\dagger$ 微分结构} ($C^\dagger$-differential structure),
+    $(M,\mathcal A)$ 是一个{\bf $C^\dagger$ 微分流形} ($C^\dagger$-differential manifold), 简称{\bf $C^\dagger$ 流形}.
+    称 $\mathcal A$ 中的坐标卡为 $M$ 的{\bf 容许坐标卡} (allowable charts).
+
+    其中, $\dagger$ 可以是 $0$ (连续), $1$ (可微), $\infty$ (光滑), $\omega$ (解析) 等等.
+\end{definition}

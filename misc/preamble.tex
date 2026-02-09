@@ -1,0 +1,210 @@
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{silence}
+\usepackage[most]{tcolorbox}
+\WarningFilter{hyperref}{}
+\WarningFilter{latexfont}{}
+\usepackage{tikz-cd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{titling}
+\usepackage{pgfplots}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{ulem}
+\usepackage{quiver}
+\usepackage{titlesec}
+\usepackage{pdfpages}
+\usepackage{quiver}
+\usepackage{mathptmx}
+\usepackage[a4paper, left=2.5cm, right=2.5cm, top=2.5cm, bottom=2cm]{geometry}
+
+\setlength{\droptitle}{-3cm}
+\pgfplotsset{compat=1.18}
+\pagestyle{empty}
+\theoremstyle{definition}
+\renewcommand{\contentsname}{}
+
+%chktex-file 37
+%chktex-file 35
+%chktex-file 25
+%chktex-file 18
+%chktex-file 17
+%chktex-file 13
+%chktex-file 11
+%chktex-file 9
+%chktex-file 8
+%chktex-file 3
+%chktex-file 1
+
+\renewcommand\proofname{\indent Pf.}
+
+\newtheorem{remark}{注.}
+
+%标题样式
+
+\newenvironment{comm}[1][]{
+    \begin{tcolorbox}[
+        enhanced,
+        breakable,
+        colframe=gray,
+        coltitle=gray,
+        colback=white,
+        colbacktitle=white,
+        boxrule=1pt,
+        titlerule=-1pt,
+        title={\bf #1},
+    ]
+
+}{
+    \end{tcolorbox}
+}
+
+\newenvironment{cirno}[1][]{
+    \begin{tcolorbox}[
+        enhanced,
+        breakable,
+        colframe=white,
+        coltitle=cyan!75!gray,
+        colback=cyan!75!gray!10!white,
+        colbacktitle=cyan!75!gray!10!white,
+        boxrule=1pt,
+        titlerule=-1pt,
+        title={\bf #1},
+        overlay unbroken and last={
+            \node[anchor=north east, xshift=0, yshift=0] at (frame.north east) {
+                \includegraphics[width=1.2cm]{resources/cirno.png}
+            };
+        },
+    ]
+
+}{
+    \end{tcolorbox}
+}
+
+\newenvironment{rumia}[1][]{
+    \begin{tcolorbox}[
+        enhanced,
+        breakable,
+        colframe=white,
+        coltitle=orange!75!gray,
+        colback=orange!75!gray!10!white,
+        colbacktitle=orange!75!gray!10!white,
+        boxrule=1pt,
+        titlerule=-1pt,
+        title={\bf #1},
+        overlay unbroken and last={
+            \node[anchor=north east, xshift=0, yshift=0] at (frame.north east) {
+                \includegraphics[width=1.2cm]{resources/rumia.png}
+            };
+        },
+    ]
+
+}{
+    \end{tcolorbox}
+}
+
+\newenvironment{dayousei}[1][]{
+    \begin{tcolorbox}[
+        enhanced,
+        breakable,
+        colframe=white,
+        coltitle=green!75!blue!75!gray,
+        colback=green!75!blue!75!gray!10!white,
+        colbacktitle=green!75!blue!75!gray!10!white,
+        boxrule=1pt,
+        titlerule=-1pt,
+        title={\bf #1},
+        overlay unbroken and last={
+            \node[anchor=north east, xshift=0, yshift=0] at (frame.north east) {
+                \includegraphics[width=1.2cm]{resources/dayousei.png}
+            };
+        },
+    ]
+
+}{
+    \end{tcolorbox}
+}
+
+\newcounter{theorem}[section]%=====定理=====
+\renewcommand{\thetheorem}{{定理 }\thesection.\arabic{theorem}}
+\newenvironment{theorem}[1][]{
+    \refstepcounter{theorem}
+    \begin{cirno}[\bf \thetheorem. #1]
+    
+}{
+    \end{cirno}
+}
+%=====引理=====
+\newcommand{\thelemma}{{引理 }\thesection.\arabic{theorem}}
+\newenvironment{lemma}[1][]{
+    \refstepcounter{theorem}
+    \begin{cirno}[\bf \thelemma. #1]
+    
+}{
+    \end{cirno}
+}
+%=====推论=====
+\newcommand{\thecorollary}{{推论 }\thesection.\arabic{theorem}}
+\newenvironment{corollary}[1][]{
+    \refstepcounter{theorem}
+    \begin{cirno}[\bf \thecorollary. #1]
+    
+}{
+    \end{cirno}
+}
+%=====命题=====
+\newcommand{\theproposition}{{命题 }\thesection.\arabic{theorem}}
+\newenvironment{proposition}[1][]{
+    \refstepcounter{theorem}
+    \begin{cirno}[\bf \theproposition. #1]
+    
+}{
+    \end{cirno}
+}
+%=====定义=====
+\newcounter{definition}[section]
+\renewcommand{\thedefinition}{{定义 }\thesection.\arabic{definition}}
+\newenvironment{definition}[1][]{
+    \refstepcounter{definition}
+    \begin{rumia}[\bf \thedefinition. #1]
+    
+}{
+    \end{rumia}
+}
+%=====例题=====
+\newcounter{example}[section]
+\renewcommand{\theexample}{{例 }\thesection.\arabic{example}}
+\newenvironment{example}[1][]{
+    \refstepcounter{example}
+    \begin{dayousei}[\bf \theexample. #1]
+    
+}{
+    \end{dayousei}
+}
+\newenvironment{solution}{
+    \begin{proof}[Sol.]}{\end{proof}}
+
+\title{微分流形}
+\author{xiaou0}
+\renewcommand{\O}{\varnothing}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\del}{\partial}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\set}[1]{\left\{\,#1\,\right\}}
+\newcommand{\ob}{\operatorname{ob}}
+\newcommand{\xto}{\xrightarrow}
+\newcommand{\hto}{\hookrightarrow}
+\newcommand{\tto}{\twoheadrightarrow}
+
+\newcommand{\Grp}{\mathsf{Grp}}
+\newcommand{\Ab}{\mathsf{Ab}}
+\newcommand{\Set}{\mathsf{Set}}
+\newcommand{\Diff}{\mathsf{Diff}}

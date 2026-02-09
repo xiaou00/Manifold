@@ -1,0 +1,165 @@
+\chapter{前置与导论}
+
+\section{代数部分}
+
+本书将默认读者熟悉基本的线性代数内容, 如线性空间, 线性映射, 矩阵等.
+在本书中, 我们绝大多数情况下都针对 $\R^n$ 进行讨论, 但我们也会在一些地方提及更一般的线性空间.
+
+若你对于多重线性代数的内容不太熟悉, 我们也会给出一些简单的介绍.
+
+我出于个人习惯, 喜欢使用很多偏代数的记号, 希望大家能够习惯.
+
+\subsection{仿射空间}
+
+在一切开始之前, 我们将介绍几何中比较重要的几类空间, 
+仿射空间可以说就是{\bf 忘记原点}的线性空间, 也就是说, 仿射空间中的点没有一个特殊的点被称为原点.
+仿射空间中的点可以通过向量来描述, 但我们不能直接对点进行加法运算, 只能对向量进行加法运算.
+于是我们得建立一种点到点, 点到向量, 向量到点的关系. 因此我们引入了仿射空间的概念.
+
+\begin{definition}[仿射空间]
+    设 $V$ 是给定的线性空间, 所谓{\bf 仿射空间} (affine space)
+    $\mathbb A$ 是一个非空的集合, 其中的元素被称为{\bf 点}, 
+    并且存在一个减法映射
+    \[-:\mathbb A\times\mathbb A\to V\]
+    他将任何一组{\bf 有序}点对映射到向量 $p-q\in V$, 满足以下条件:
+    \begin{enumerate}
+        \item[A1] 对任意 $p\in\mathbb A$, $p-p=0$.
+        \item[A2] 对任意 $p\in\mathbb A, v\in V$, 存在唯一的 $q\in\mathbb A$ 使得 $p-q=v$.
+        \item[A3] 对任意 $p,q,r\in\mathbb A$, $(p-q)+(q-r)=p-r$.
+    \end{enumerate}
+
+    我们称 $V$ 为其伴随的线性空间, 通常情况下我们会把 $q-p$ 记作 $\vec{pq}$.
+    若在仿射空间中选定原点 $o$, 那么他和线性空间中的向量自然地一一对应.
+\end{definition}
+
+在仿射空间 $\mathbb A$ 中, 我们进行了去心的操作, 但这并不代表心不重要,
+而是允许我们自由地选取一个点作为原点, 从而使得仿射空间中的点和线性空间中的向量一一对应.
+
+标架的概念就允许我们规范地选取一个点决定的线性结构, 从而使得仿射空间中的点和线性空间中的向量一一对应.
+
+\begin{definition}[标架]
+    设 $\mathbb A$ 是一个仿射空间, $o\in\mathbb A$ 是一个点, $e_1,\dots,e_n$ 是伴随的有限维线性空间 $V$ 的一组基,
+    则称 $(o;e_1,\dots,e_n)$ 是 $\mathbb A$ 的一个{\bf 标架} (frame).
+
+    若该基是 $V$ 的一个组正交基 (要求 $V$ 具有内积结构), 则称该标架为{\bf 正交标架} (orthogonal frame).
+\end{definition}
+
+\subsection{泛性质}
+
+
+{\bf 万有性质/泛性质} (universal property) 是代数学中一个核心概念.
+直观地理解的话, 万有性质就是通过「一个对象在范畴中的身份」来确定一个对象.
+
+举一个生动的比方, 如何定义「幻想乡最强」这个概念? 我们可以用两种角度去描述.
+\begin{enumerate}
+    \item (内部定义) 幻想乡最强就是幻想乡里HP和STR最高的存在, 那就是我琪露诺哒!
+    \item (泛性质定义) 幻想乡最强就是那个「任何和她对战的幻想乡住民, 都会输给她」的存在, 那就是我琪露诺哒!
+\end{enumerate}
+
+在范畴论中, 我们并不关心对象的「内部结构」, 也就是第一种定义方式. 我们只关心对象在范畴中的「身份」, 也就是第二种定义方式.
+因此我们可以用万有性质来定义范畴中的对象. 例如在集合范畴 $\Set$ 中, 我们可以用万有性质来定义笛卡尔积:
+\begin{enumerate}
+    \item (内部定义) 集合 $A$ 和 $B$ 的笛卡尔积 $A\times B$ 定义为全体有序对 $(a,b)$ 组成的集合, 其中 $a\in A,b\in B$.
+    \item (泛性质定义) 集合 $A$ 和 $B$ 的笛卡尔积 $A\times B$ 定义为满足如下万有性质的对象: 存在投影映射
+    $\pi_A:A\times B\to A,\pi_B:A\times B\to B$, 使得对任意集合 $X$ 及映射 $f:X\to A,g:X\to B$, 存在唯一的映射
+    $h:X\to A\times B$, 使得 $\pi_A h=f,\pi_B h=g$. 如下图所示
+\end{enumerate}
+\begin{equation}
+    \large\begin{tikzcd}[column sep=small]
+        && X \\
+        \\
+        && {A\times B} \\
+        A &&&& B
+        \arrow["{\exists!}", dashed, from=1-3, to=3-3]
+        \arrow["f"', from=1-3, to=4-1]
+        \arrow["g", from=1-3, to=4-5]
+        \arrow["{\pi_A}"', from=3-3, to=4-1]
+        \arrow["{\pi_B}", from=3-3, to=4-5]
+    \end{tikzcd}
+\end{equation}
+ 
+通过上一个例子我们会发现, 由于范畴并不能有效区分集合中的元素, 因此我们通过泛性质构造的
+对像并不一定是我们通过内部定义的那一个「特定的对象」, 但取而代之, 它们在范畴中是「等价」的, 也就是说它们一定是同构的.
+这一点在上例中并不难以验证.
+
+回到第一个例子中, 假如除了琪露诺, 大妖精也是「幻想乡最强」, 那么任何幻想乡\sout{老妖怪}美少女
+和她对战都会输, 那么可以得出琪露诺和大妖精对战必然是双方皆输, 由此类比范畴中的概念就是同构.
+
+一般情况下, 泛性质会描述为「一个对象 $U$ 满足, 对任何同样满足某条件的对象 $X$,
+都{\bf 存在唯一的态射} $u:U\to X$ (或 $X\to U$) 使得其相关的图表交换」.
+这样的句式将在代数里经常见到.
+
+还是回到第一个例子, 此时琪露诺满足的泛性质就可以描述成: 「琪露诺是幻想乡最强, 因为对任何其他幻想乡中的强者,
+琪露诺一定能够打败她」, 如下图所示
+\begin{equation}
+    \begin{tikzcd}[row sep=large]
+        & \text{琪露诺} && \text{博丽灵梦} \\
+        \\
+        \text{雾雨魔理沙} && \text{芙兰朵露} && \text{幽幽子}
+        \arrow["{\exists!\text{打败}}"{description}, dashed, from=1-2, to=1-4]
+        \arrow["\text{打败}"{description}, from=1-2, to=3-1]
+        \arrow["\text{打败}"{description, pos=0.6}, from=1-2, to=3-3]
+        \arrow["\text{打败}"{description, pos=0.7}, from=1-2, to=3-5]
+        \arrow["\text{打败}"{description, pos=0.7}, from=1-4, to=3-1]
+        \arrow["\text{打败}"{description, pos=0.6}, from=1-4, to=3-3]
+        \arrow["\text{打败}"{description}, from=1-4, to=3-5]
+    \end{tikzcd}
+\end{equation}
+
+在微分几何中, 泛性质的概念也非常重要, 张量积就是一个典型的例子, 我们会在后续章节中
+介绍张量积的定义, 以及它的万有性质.
+
+\section{分析部分}
+
+数学分析的内容在本书中也会被频繁使用, 但我们不会过多地涉及分析的细节, 只会在必要的时候进行简单的介绍.
+我们会假设读者熟悉基本的微积分内容, 如极限, 连续, 可微等.
+
+多元微积分的前置是必要的, 因为我们需要在多维空间中进行微分和积分运算, 以及处理多元函数的极限和连续性等问题.
+
+\subsection{多元函数的微分}
+
+这一部分的内容你应该已经相当熟悉, 但我们还是会简单地回顾一下多元函数的微分的定义和性质, 以便后续章节中能够更好地理解相关内容.
+
+\begin{definition}[Jacobian矩阵]
+    设 $f:\R^n\to\R^m$ 是一个多元函数, 则称 $f$ 的{\bf Jacobian矩阵} (Jacobian matrix) 是一个 $m\times n$ 的矩阵,
+    记作 $\mathbf J_f$, 其第 $i$ 行第 $j$ 列的元素为 $\frac{\del f_i}{\del x_j}$, 其中 $f_i$ 是 $f$ 的第 $i$ 个分量函数,
+    $x_j$ 是输入变量的第 $j$ 个分量. 即
+    \[
+    \mathbf J_f=
+    \begin{pmatrix}
+        \frac{\del f_1}{\del x_1} & \frac{\del f_1}{\del x_2} & \cdots & \frac{\del f_1}{\del x_n} \\
+        \frac{\del f_2}{\del x_1} & \frac{\del f_2}{\del x_2} & \cdots & \frac{\del f_2}{\del x_n} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \frac{\del f_m}{\del x_1} & \frac{\del f_m}{\del x_2} & \cdots & \frac{\del f_m}{\del x_n}
+    \end{pmatrix}
+    \]
+    
+\end{definition}
+
+Jacobian矩阵本质上就是全微分的矩阵表示, 其中全微分是一个线性算子.
+
+多元光滑函数是我们定义微分流形的基础:
+
+\begin{definition}[光滑函数]\label{def:smooth_function}
+    设 $f:X\to Y$, 其中 $X\subset \R^n$ 是开集, $Y\subset \R^m$ 是开集, 如果 $f$ 的所有分量函数 $f_i$ 都是光滑函数, 即在 $\R^n$ 上具有任意阶的连续偏导数, 则称 $f$ 是一个{\bf 光滑函数} (smooth function).
+\end{definition}
+
+\section{拓扑部分}
+
+点集拓扑的基本理念也是定义微分流形的基础, 因此我们也会在本书中频繁使用点集拓扑的内容.
+我们不会过多地涉及点集拓扑的细节, 只会在必要的时候进行简单的介绍.
+
+\subsection{拓扑流形}
+
+拓扑流形是所有流形的模板, 他的核心机制是, 赋予每一个点的局部结构与欧几里得空间相同, 从而使得我们能够在流形上进行类似微分运算等操作.
+
+\begin{definition}[拓扑流形]
+    设 $M$ 是一个集合, 如果 $M$ 满足以下条件, 则称 $M$ 是一个{\bf 拓扑流形} (topological manifold):
+    \begin{enumerate}
+        \item $M$ 是一个Hausdorff空间.
+        \item $M$ 是一个第二可数空间.
+        \item 对任意 $p\in M$, 存在一个开邻域 $U$ 和一个同胚 $\phi:U\to V$, 其中 $V$ 是 $\R^n$ 的一个开子集, 则称 $(U,\phi)$ 是 $M$ 的一个{\bf 局部坐标卡} (local chart).
+    \end{enumerate}
+
+    此时称 $M$ 是一个 $n$-拓扑流形, 其中 $n$ 被称为 $M$ 的{\bf 维数}(dimension).
+\end{definition}
