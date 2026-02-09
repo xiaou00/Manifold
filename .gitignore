@@ -17,4 +17,5 @@
 *.ilg
 *.inx
 *.xdv
+*.synctex(busy)
 .vscode/
