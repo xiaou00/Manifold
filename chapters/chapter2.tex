@@ -418,7 +418,7 @@ $v(f)$ 可以看作是函数 $f$ 在点 $p$ 处沿着切向量 $v$ 的方向的�
 
 下面是关于切向量理论的一个核心定理, 证明了我们通过曲线定义的切向量和通过导数定义的切向量在某些意义上是等价的.
 
-\begin{theorem}
+\begin{theorem}\label{thm:tangent_space_equivalence}
     设 $M$ 是 $m$-微分流形, $p\in M$, 记 $\mathcal S_p/\sim$ 为我们通过曲线定义的切空间,
     $T_pM$ 为我们通过导数定义的切空间, 则存在一个自然的线性同构
     \begin{align*}
@@ -485,3 +485,80 @@ $v(f)$ 可以看作是函数 $f$ 在点 $p$ 处沿着切向量 $v$ 的方向的�
     \[v(f)=\sum_{i=1}^m{\left(v(\phi^i)\cdot\frac{\partial f}{\partial \phi^i}(p)\right)}\]
     至此, $\theta$ 是满射. 因此 $\theta$ 是双射. 这就证明了定理.
 \end{proof}
+
+\begin{theorem}[切空间的基]
+    设 $M$ 是 $m$-微分流形, $p\in M$, $\dim T_pM=m$ 且
+    \[\set{\frac{\del}{\del \phi^1}\Big|_p,\ldots,\frac{\del}{\del \phi^m}\Big|_p}\]
+    是 $T_pM$ 的一组基, 其中 $(U,\phi)$ 是包含 $p$ 的一个容许坐标卡, $\phi=(\phi^1,\ldots,\phi^m)$.
+    且定义
+    \[\frac{\del f}{\del \phi^i}\Big|_p:=\frac{\del(f\circ\phi^{-1})}{\del x^i}\Big|_{\phi(p)}\]
+\end{theorem}
+\begin{proof}
+    选定一个包含 $p$ 的容许坐标卡 $(U,\phi)$, 我们再考虑 $\mathcal S/\sim$ 中的一组基.
+    这个讨论是相对容易的, 我们只需选取 $\R^m$ 的一组基
+    \[\set{e_1,\ldots,e_m}\]
+    其中 $e_i$ 是 $\R^m$ 中的第 $i$ 个标准基向量, 则对于每个 $e_i$, 我们用构造 $\sigma(t)=(\phi^1(p)+t e_i^1,\ldots,\phi^m(p)+t e_i^m)$ 的方法
+    可以构造一个光滑曲线 $\gamma_i\in\mathcal S_p$, 使得
+    \[\frac{\d}{\d t}(\phi\circ\gamma_i)\Big|_{t=0}=e_i\]
+    这样就构造了 $\mathcal S/\sim$ 中的一组基 
+    \[\set{[\gamma_1],\ldots,[\gamma_m]}\]
+    由[\ref{thm:tangent_space_equivalence}], 我们可以将这组基打到 $T_pM$ 上, 其中 $[\gamma_i]$ 的像为
+    \begin{align*}
+        v_i(f)&=\frac{\d}{\d t}(f\circ\gamma_i)\Big|_{t=0}\\
+        &=\sum_{j=1}^m\left(\frac{\d}{\d t}(\sigma^j(t))\Big|_{t=0}\cdot\frac{\partial f}{\partial \phi^j}(p)\right)\\
+        &=\sum_{j=1}^m\left(e_i^j\cdot\frac{\partial f}{\partial \phi^j}(p)\right)\\
+        &=\frac{\partial f}{\partial \phi^i}(p)
+    \end{align*}
+    这就证明了
+    \[\set{\frac{\del}{\del \phi^1}\Big|_p,\ldots,\frac{\del}{\del \phi^m}\Big|_p}\]
+    是 $T_pM$ 的一组基.
+\end{proof}
+
+上面的定理就很明确地说明了切向量作为求导映射的本质. 接下来我们来
+讨论不同坐标卡之间的切空间基的关系. 设 $(U,\phi)$ 和 $(V,\psi)$ 是包含 $p$ 的两个容许坐标卡,
+其中 $\phi=(\phi^1,\ldots,\phi^m)$, $\psi=(\psi^1,\ldots,\psi^m)$, 并且两组坐标卡指定的
+切空间基分别为
+\[\set{\frac{\del}{\del \phi^1}\Big|_p,\ldots,\frac{\del}{\del \phi^m}\Big|_p}\]
+和
+\[\set{\frac{\del}{\del \psi^1}\Big|_p,\ldots,\frac{\del}{\del \psi^m}\Big|_p}\]
+则对于任意 $i=1,\ldots,m$, 都有
+\[\frac{\del}{\del \psi^i}\Big|_p=\sum_{j=1}^m\left(\frac{\del \phi^j}{\del \psi^i}\Big|_p\cdot\frac{\del}{\del \phi^j}\Big|_p\right)\]
+其中
+\[\frac{\del\phi^j}{\del\psi^i}\Big|_p=\frac{\del(\phi\circ\psi^{-1})^j}{\del x^i}\Big|_{\psi(p)}\]
+诶, 这说明我们从一个坐标卡切换到另一个坐标卡时, 切空间基的变换的矩阵恰好就是转移函数 $\phi\circ\psi^{-1}$ 的Jacobian矩阵.
+\[\mathbf J=\begin{pmatrix}
+    \dfrac{\del(\phi\circ\psi^{-1})^1}{\del x^1}&\cdots&\dfrac{\del(\phi\circ\psi^{-1})^1}{\del x^m}\\
+    \vdots&\ddots&\vdots\\
+    \dfrac{\del(\phi\circ\psi^{-1})^m}{\del x^1}&\cdots&\dfrac{\del(\phi\circ\psi^{-1})^m}{\del x^m}
+\end{pmatrix}\]
+设 $v\in T_pM$, 则他们在基底下有表达式
+\[v=\sum_{i=1}^m{v^i_\phi\frac{\del}{\del\phi^i}}=\sum_{i=1}^m{v^i_\psi\frac{\del}{\del\psi^i}}\]
+则
+\[\sum_{i=1}^m{v^i_\phi\frac{\del}{\del\phi^i}}=\sum_{i,j=1}^m{v^j_\psi\frac{\del \phi^i}{\del \psi^j}\cdot\frac{\del}{\del \phi^i}}\]
+从而
+\[\begin{pmatrix}
+    v^1_\phi\\ \vdots \\ v^m_\phi
+\end{pmatrix} = \mathbf{J} \begin{pmatrix}
+    v^1_\psi\\ \vdots \\ v^m_\psi
+\end{pmatrix}\]
+
+这表明切向量的分量在基底变换时遵循反变规律.
+
+\subsection{余切向量与余切空间}
+
+余切向量和余切空间是切向量和切空间的对偶概念, 他们在微分几何中同样重要.
+
+\begin{definition}[余切空间和余切向量]
+    设 $M$ 是 $m$-微分流形, $p\in M$, 则切空间 $T_pM$ 的对偶空间 $T^*_pM=\Hom(T_pM, \mathbb{R})$ 称为点 $p$ 处的{\bf 余切空间} (cotangent space), 其元素称为{\bf 余切向量} (cotangent vector).
+
+    对于 $\alpha\in T^*_pM$ 和 $v\in T_pM$, $\alpha(v)$ 是 $\alpha$ 作用在 $v$ 上的结果, 是一个实数. 习惯上记作 $\langle\alpha,v\rangle$. 其可以看作定义在
+    $T^*_pM\times T_pM$ 上的一个双线性函数.
+\end{definition}
+
+我们该如何直观地理解余切向量呢? 事实上, 他可以视作是微分概念的推广. 
+
+\begin{definition}[光滑函数的微分]
+    对于 $f\in C^\infty_p$, 其在点 $p$ 处的{\bf 微分} (differential) $\d f\in T^*_pM$ 是满足
+    \[\d f(v)=\langle\d f,v\rangle=v(f)\]
+    的切向量.
+\end{definition}
