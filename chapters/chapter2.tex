@@ -395,6 +395,20 @@ $v(f)$ 可以看作是函数 $f$ 在点 $p$ 处沿着切向量 $v$ 的方向的�
 
 或者, 我们可以说, 切向量 $v$ 的本质就是求导的映射, 将函数打到其在点 $p$ 处的导数上
 
+\begin{example}
+    设 $M$ 是一个 $m$-微分流形, $p\in M$, $v$ 是 $p$ 处的一个切向量.
+    试着证明若 $f\in C^\infty_p$ 是常数函数, 则 $v(f)=0$.
+\end{example}
+\begin{proof}
+    设 $f\in C^\infty_p$ 是常数函数, 则对于任意 $g\in C^\infty_p$, 都有
+    \[v(fg)=f(p)v(g)+g(p)v(f)\]
+    由于 $f$ 是常数函数, 因此 $f(p)$ 是一个常数, 记作 $c$, 则上式等价于
+    \[v(cg)=cv(g)+g(p)v(f)\]
+    又由于 $v$ 是线性的, 上式等价于
+    \[cv(g)=cv(g)+g(p)v(f)\]
+    从而对于任意 $g\in C^\infty_p$, 都有 $g(p)v(f)=0$. 这说明 $v(f)=0$.
+\end{proof}
+
 \begin{definition}[切空间 (II)]
     设 $M$ 是 $m$-微分流形, $p\in M$, 则称点 $p$ 处的所有切向量构成的集合
     \[T_pM=\set{v:C^\infty_p\to\R\mid v \text{ 满足 T1 和 T2}}\]
@@ -448,9 +462,26 @@ $v(f)$ 可以看作是函数 $f$ 在点 $p$ 处沿着切向量 $v$ 的方向的�
     使得 $\gamma(0)=p$, 从而 $\gamma\in\mathcal S_p$. 并且对于任意 $f\in C^\infty_p$, 都有
     \begin{align*}
         \theta([\gamma])(f)&=\frac{\d}{\d t}(f\circ\gamma(t))\Big|_{t=0} &\text{定义}\\
-        &=\sum_{i=1}^m\frac{\d}{\d t}(\phi^i\circ\gamma(t))\Big|_{t=0}\cdot\frac{\partial f}{\partial \phi^i}(p) &\text{链式法则}\\
-        &=\sum_{i=1}^mv(\phi^i)\cdot\frac{\partial f}{\partial \phi^i}(p) &\\
-        &=v(f) &
+        &=\frac{\d}{\d t}(f\circ\phi^{-1}\circ\sigma(t))\Big|_{t=0} &\sigma\,\text{的定义}\\
+        &=\sum_{i=1}^m\left(\frac{\d}{\d t}(\sigma^i(t))\Big|_{t=0}\cdot\frac{\partial f}{\partial \phi^i}(p)\right)
+        &\text{链式法则}, \frac{\del f}{\del \phi^i}(p):=\frac{\del(f\circ\phi^{-1})}{\del x^i}(\phi(p))\\
+        &=\sum_{i=1}^m\left(v(\phi^i)\cdot\frac{\partial f}{\partial \phi^i}(p)\right) &\sigma\,\text{的定义}
     \end{align*}
-    这说明 $\theta$ 是满射. 因此 $\theta$ 是双射. 这就证明了定理.
+    证明的关键在于证明
+    \[\sum_{i=1}^m\left(v(\phi^i)\cdot\frac{\del f}{\del\phi^i}(p)\right)=v(f)\]
+    不妨设 $\R^m\to\R$ 的函数 $\hat f=f\circ\phi^{-1}$, 则由Hadamard引理[\ref{lem:hadamard}], 有
+    \[\hat f(x)=\hat f(\phi(p))+\sum_{i=1}^m(x^i-\phi^i(p))\cdot g_i(x)\tag{I}\]
+    其中 $g_i:\phi(U)\to\R$ 是 $C^\infty$ 函数, 并且
+    \[g_i(\phi(p))=\frac{\partial \hat f}{\partial x^i}(\phi(p))=\frac{\partial f}{\partial \phi^i}(p)\]
+    将 (I) 拉回到 $U$, 令 $x=\phi(q)$, 则对于任意 $q\in U$, 有
+    \[f(q)=f(p)+\sum_{i=1}^m(\phi^i(q)-\phi^i(p))\cdot (g_i\circ\phi)(q)\tag{II}\]
+    将 $v$ 作用在 (II) 上, 则由线性性,
+    \[v(f)=v(f(p))+\sum_{i=1}^m v\left((\phi^i(q)-\phi^i(p))\cdot (g_i\circ\phi)\right)\tag{III}\]
+    由于 $f(p)$ 是常数, 显然 $v(f(p))=0$. 由Leibniz律,
+    \[v\left((\phi^i(q)-\phi^i(p))\cdot (g_i\circ\phi)\right)=(\underbrace{\phi^i(p)-\phi^i(p)}_0)\cdot v(g_i\circ\phi)+(g_i\circ\phi)(p)\cdot v(\phi^i-\phi^i(p))\]
+    由于 $v(\phi^i-\phi^i(p))=v(\phi^i)$, 上式等于
+    \[v(f)=\sum_{i=1}^m{v(\phi^i)\cdot (g_i\circ\phi)(p)}\]
+    代入 $g_i$ 定义, 则
+    \[v(f)=\sum_{i=1}^m{\left(v(\phi^i)\cdot\frac{\partial f}{\partial \phi^i}(p)\right)}\]
+    至此, $\theta$ 是满射. 因此 $\theta$ 是双射. 这就证明了定理.
 \end{proof}

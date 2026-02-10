@@ -144,6 +144,16 @@ Jacobian矩阵本质上就是全微分的矩阵表示, 其中全微分是一个�
     设 $f:X\to Y$, 其中 $X\subset \R^n$ 是开集, $Y\subset \R^m$ 是开集, 如果 $f$ 的所有分量函数 $f_i$ 都是光滑函数, 即在 $\R^n$ 上具有任意阶的连续偏导数, 则称 $f$ 是一个{\bf 光滑函数} (smooth function).
 \end{definition}
 
+\subsection{Taylor定理}
+
+Taylor定理是多元微积分中的一个重要定理, 它描述了一个函数在某点附近的局部行为, 以及如何用多项式来近似函数.
+
+\begin{lemma}[Hadamard引理]\label{lem:hadamard}
+    设 $f:\R^n\to\R$ 是一个光滑函数, 且 $f(0)=0$, 则存在 $n$ 个光滑函数 $g_1,\dots,g_n:\R^n\to\R$, 使得
+    \[f(x)=\sum_{i=1}^ng_i(x)x_i\]
+    满足 $g_i(0)=\dfrac{\del f}{\del x_i}(0)$.
+\end{lemma}
+
 \section{拓扑部分}
 
 点集拓扑的基本理念也是定义微分流形的基础, 因此我们也会在本书中频繁使用点集拓扑的内容.
@@ -163,3 +173,7 @@ Jacobian矩阵本质上就是全微分的矩阵表示, 其中全微分是一个�
 
     此时称 $M$ 是一个 $n$-拓扑流形, 其中 $n$ 被称为 $M$ 的{\bf 维数}(dimension).
 \end{definition}
+
+\begin{corollary}
+    切空间 $T_pM$ 的维数等于流形 $M$ 的维数.
+\end{corollary}
