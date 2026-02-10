@@ -215,7 +215,7 @@ $\psi\circ f\circ\varphi^{-1}$ 是一个定义在 $\R^m$ 上的函数, 其在 $\
 微分同胚意味着流形具有相同拓扑结构的同时, 还具有相同的微分结构. 这说明微分同胚是一个比拓扑同胚更强的概念, 因此微分同胚也比拓扑同胚更难以满足.
 显然 $\Diff$ 是 $\Top$ 的一个子范畴. 然而他却不是全子范畴, 显然可以存在两个微分流形 $M$ 和 $N$, 使得 $M$ 和 $N$ 是拓扑同胚的, 但 $M$ 和 $N$ 却不是微分同胚的.
 
-\subsection{切向量与切空间}
+\subsection{切向量与切空间 I}
 
 虽然说, 微分流形没有线性结构, 但是我们可以在微分流形上定义一个局部的线性结构, 这就是切空间 (tangent space).
 切空间的定义有很多种, 其中最为常见的一种定义是通过切向量 (tangent vector) 来定义的. 切向量的定义也有很多种, 我们将介绍几种常见的定义,
@@ -279,7 +279,7 @@ $\psi\circ f\circ\varphi^{-1}$ 是一个定义在 $\R^m$ 上的函数, 其在 $\
 \[\mathcal S_p=\set{\gamma:(-\epsilon,\epsilon)\to M\mid \gamma(0)=p}\]
 下面的两个引理确保切空间中加法运算和乘法运算的良定义性.
 
-\begin{lemma}
+\begin{lemma}\label{lem:add_in_tangent_space}
     设 $M$ 是一个 $m$-微分流形, $p\in M$, $[\gamma_1],[\gamma_2]$
     是 $M$ 在点 $p$ 处的两个切向量, 则存在 $M$ 上的一条光滑曲线 $\gamma_3\in\mathcal S_p$, 使得
     \[\frac{\d}{\d t}(\phi\circ\gamma_3)\Big|_{t=0}=\frac{\d}{\d t}(\phi\circ\gamma_1)\Big|_{t=0}+\frac{\d}{\d t}(\phi\circ\gamma_2)\Big|_{t=0}\]
@@ -305,4 +305,183 @@ $\psi\circ f\circ\varphi^{-1}$ 是一个定义在 $\R^m$ 上的函数, 其在 $\
         &=\mathbf v_1+\mathbf v_2
     \end{align*}
     这就证明了引理. 容易证明其不依赖坐标卡的选取.
+\end{proof}
+
+第二个引理完全就是上一个的翻版:
+
+\begin{lemma}\label{lem:scalar_mul_in_tangent_space}
+    设 $M$ 是一个 $m$-微分流形, $p\in M$, $[\gamma]$ 是 $M$ 在点 $p$ 处的一个切向量, $\lambda\in\R$, 则存在 $M$ 上的一条光滑曲线 $\gamma_\lambda\in\mathcal S_p$, 使得
+    \[\frac{\d}{\d t}(\phi\circ\gamma_\lambda)\Big|_{t=0}=\lambda\cdot\frac{\d}{\d t}(\phi\circ\gamma)\Big|_{t=0}\]
+    其中 $(U,\phi)$ 是包含 $p$ 的任一容许坐标卡. 记作 $[\gamma_\lambda]=\lambda[\gamma]$.    
+\end{lemma}
+
+\begin{proof}
+    选定一个包含 $p$ 的容许坐标卡 $(U,\phi)$, 则
+    \[\mathbf v=\frac{\d}{\d t}(\phi\circ\gamma)\Big|_{t=0}\]
+    是在 $\R^m$ 中的一个向量, 我们的目的是构造一个光滑曲线 $\gamma_\lambda\in\mathcal S_p$, 使得
+    \[\frac{\d}{\d t}(\phi\circ\gamma_\lambda)\Big|_{t=0}=\lambda\cdot\mathbf v\]
+    不妨设
+    \[\sigma(t)=\phi(p)+t(\lambda\cdot\mathbf v)\]
+    显然 $\phi(U)$ 是 $\R^m$ 中的开集且 $\sigma(0)=\phi(p)$.
+    对于充分小的 $(-\epsilon,\epsilon)$, $t\in(-\epsilon,\epsilon)$ 时必然有 $\sigma(t)\in\phi(U)$. 因此我们可以定义
+    \[\gamma_\lambda(t)=\phi^{-1}(\sigma(t))\]
+    使得 $\gamma_\lambda(0)=p$, 从而 $\gamma_\lambda\in\mathcal S_p$. 并且
+    \begin{align*}
+        \frac{\d}{\d t}(\phi\circ\gamma_\lambda)\Big|_{t=0}&=\frac{\d}{\d t}\sigma(t)\Big|_{t=0} \\
+        &=\frac{\d}{\d t}[\phi(p)+t(\lambda\cdot\mathbf v)]\Big|_{t=0} \\
+        &=\lambda\cdot\mathbf v
+    \end{align*}
+    这就证明了引理. 容易证明其不依赖坐标卡的选取.
+\end{proof}
+
+\begin{definition}[切空间 (I)]
+    设 $M$ 是一个 $m$-微分流形, $p\in M$, 则称点 $p$ 处的所有切向量构成的集合
+    \[T_pM=\set{[\gamma]\mid\gamma\in\mathcal S_p}\]
+    是点 $p$ 处的{\bf 切空间} (tangent space). 切空间 $T_pM$ 上的加法和数乘
+    分别由[\ref{lem:add_in_tangent_space}]和[\ref{lem:scalar_mul_in_tangent_space}]给出.
+\end{definition}
+
+下面我们证明一个重要的定理
+
+\begin{theorem}
+    设 $M$ 是一个 $m$-微分流形, $p\in M$, 则点 $p$ 处的切空间 $T_pM$ 是一个 $m$-维实向量空间.
+\end{theorem}
+\begin{proof}
+    不妨先选取 $p$ 附近的容许坐标卡 $(U,\phi)$, 由定义, 我们可以
+    定义一个自然的映射
+    \begin{align*}
+        \theta_\phi:T_pM&\to\R^m\\
+        [\gamma]&\mapsto\frac{\d}{\d t}(\phi\circ\gamma)\Big|_{t=0}
+    \end{align*}
+    我们来证明 $\theta_\phi$ 是双射, 由切向量的定义, 若两个等价类
+    $[\gamma_1]$ 和 $[\gamma_2]$ 满足 $\theta_\phi([\gamma_1])=\theta_\phi([\gamma_2])$, 则
+    由定义, $[\gamma_1]=[\gamma_2]$. 这说明 $\theta_\phi$ 是单射.
+    另一方面, 对于任意 $\mathbf v\in\R^m$, 我们仍然可以构造
+    \[\sigma(t)=\phi(p)+t\mathbf v\]
+    并且由于 $\phi(U)$ 是 $\R^m$ 中的一个开集, 因此对于充分小的 $(-\epsilon,\epsilon)$,
+    $t\in(-\epsilon,\epsilon)$ 时必然有 $\sigma(t)\in\phi(U)$. 因此我们可以定义
+    \[\gamma(t)=\phi^{-1}(\sigma(t))\]
+    使得 $\gamma(0)=p$, 从而 $\gamma\in\mathcal S_p$. 并且
+    \[\theta_\phi([\gamma])=\frac{\d}{\d t}(\phi\circ\gamma)\Big|_{t=0}=\frac{\d}{\d t}\sigma(t)\Big|_{t=0}=\mathbf v\]
+    这说明 $\theta_\phi$ 是满射. 因此 $\theta_\phi$ 是双射. 由运算的定义, $\theta_\phi$ 还是一个线性映射.
+    因此 $T_pM$ 与 $\R^m$ 同构, 从而 $T_pM$ 是一个 $m$-维实向量空间.
+\end{proof}
+
+至此, 我们通过曲线的方式定义了切向量, 非常直观, 但是并没有揭示切向量的本质.
+下面我们将介绍另外两种定义切向量的方式, 他们虽然看起来很抽象, 但是却揭示了切向量的本质,
+并且与我们通过曲线定义的切向量等价.
+
+\subsection{切向量与切空间 II}
+
+为了简化表述, 设 $M$ 是一个 $m$-微分流形, $p\in M$, 令 $C^\infty_p$ 表示所有在 $p$
+的邻域上有定义且在 $p$ 处光滑的函数构成的集合. 显然 $C^\infty_p$ 是一个实代数,
+其加法和乘法分别由函数的加法和乘法定义.
+
+\begin{definition}[切向量 (II)]
+    设 $M$ 是 $m$-微分流形, $p\in M$, 若线性映射 $v:C^\infty_p\to\R$ 满足
+    \begin{enumerate}
+        \item[T1.] $v$ 是线性的, 即对于任意 $f,g\in C^\infty_p$ 和 $\lambda\in\R$, 都有
+        \[v(\lambda f+g)=\lambda v(f)+v(g)\]
+        \item[T2.] (Leibniz律) 对于任意 $f,g\in C^\infty_p$, 都有
+        \[v(fg)=f(p)v(g)+g(p)v(f)\]
+    \end{enumerate}
+    则称 $v$ 是点 $p$ 处的一个{\bf 切向量} (tangent vector).
+\end{definition}
+
+这是切向量的一个较为现代的定义, 也是我们在后续章节中会经常使用的定义.
+Leibniz律的物理意义是, 切向量 $v$ 作用在函数 $f$ 上的结果
+$v(f)$ 可以看作是函数 $f$ 在点 $p$ 处沿着切向量 $v$ 的方向的导数,
+因此对于函数的乘积 $fg$, 切向量 $v$ 作用在 $fg$ 上的结果 $v(fg)$ 就应该满足乘积法则.
+
+或者, 我们可以说, 切向量 $v$ 的本质就是求导的映射, 将函数打到其在点 $p$ 处的导数上
+
+\begin{example}
+    设 $M$ 是一个 $m$-微分流形, $p\in M$, $v$ 是 $p$ 处的一个切向量.
+    试着证明若 $f\in C^\infty_p$ 是常数函数, 则 $v(f)=0$.
+\end{example}
+\begin{proof}
+    设 $f\in C^\infty_p$ 是常数函数, 则对于任意 $g\in C^\infty_p$, 都有
+    \[v(fg)=f(p)v(g)+g(p)v(f)\]
+    由于 $f$ 是常数函数, 因此 $f(p)$ 是一个常数, 记作 $c$, 则上式等价于
+    \[v(cg)=cv(g)+g(p)v(f)\]
+    又由于 $v$ 是线性的, 上式等价于
+    \[cv(g)=cv(g)+g(p)v(f)\]
+    从而对于任意 $g\in C^\infty_p$, 都有 $g(p)v(f)=0$. 这说明 $v(f)=0$.
+\end{proof}
+
+\begin{definition}[切空间 (II)]
+    设 $M$ 是 $m$-微分流形, $p\in M$, 则称点 $p$ 处的所有切向量构成的集合
+    \[T_pM=\set{v:C^\infty_p\to\R\mid v \text{ 满足 T1 和 T2}}\]
+    是点 $p$ 处的{\bf 切空间} (tangent space). 切空间 $T_pM$ 上的加法和数乘
+    分别由函数值的加法和数乘定义.
+\end{definition}
+
+下面是关于切向量理论的一个核心定理, 证明了我们通过曲线定义的切向量和通过导数定义的切向量在某些意义上是等价的.
+
+\begin{theorem}
+    设 $M$ 是 $m$-微分流形, $p\in M$, 记 $\mathcal S_p/\sim$ 为我们通过曲线定义的切空间,
+    $T_pM$ 为我们通过导数定义的切空间, 则存在一个自然的线性同构
+    \begin{align*}
+        \theta:\mathcal S_p/\sim&\longrightarrow T_pM \\
+        [\gamma]&\longmapsto\left( v:f\mapsto\frac{\d}{\d t}(f\circ\gamma(t))\Big|_{t=0} \right)
+    \end{align*} 
+\end{theorem}
+\begin{proof}
+    首先验证良定义性, 设 $[\gamma_1]=[\gamma_2]$, 则对于任意 $f\in C^\infty_p$, 都有
+    \begin{align*}
+        \frac{\d}{\d t}(f\circ\gamma_1(t))\Big|_{t=0}&=\frac{\d}{\d t}(f\circ\gamma_2(t))\Big|_{t=0}
+    \end{align*}
+    因此 $\theta$ 是良定义的. 其次验证 $\theta$ 是线性的. 设 $[\gamma_1],[\gamma_2]\in\mathcal S_p/\sim$, $\lambda\in\R$, 则对于任意 $f\in C^\infty_p$, 都有
+    \begin{align*}
+        \theta([\gamma_1]+[\gamma_2])(f)&=\frac{\d}{\d t}(f\circ\gamma_3(t))\Big|_{t=0} \\
+        &=\frac{\d}{\d t}(f\circ\gamma_1(t))\Big|_{t=0}+\frac{\d}{\d t}(f\circ\gamma_2(t))\Big|_{t=0} \\
+        &=\theta([\gamma_1])(f)+\theta([\gamma_2])(f)
+    \end{align*}
+    其中 $\gamma_3$ 是满足 $[\gamma_3]=[\gamma_1]+[\gamma_2]$ 的曲线, 其存在性由[\ref{lem:add_in_tangent_space}]保证. 
+    同样的, 设 $\gamma_\lambda$ 是满足 $[\gamma_\lambda]=\lambda[\gamma_1]$ 的曲线, 其存在性由[\ref{lem:scalar_mul_in_tangent_space}]保证, 则
+    \begin{align*}
+        \theta(\lambda[\gamma_1])(f)&=\frac{\d}{\d t}(f\circ\gamma_\lambda(t))\Big|_{t=0} \\
+        &=\lambda\cdot\frac{\d}{\d t}(f\circ\gamma_1(t))\Big|_{t=0} \\
+        &=\lambda\cdot\theta([\gamma_1])(f)
+    \end{align*}
+    这说明 $\theta$ 是线性的. 最后验证 $\theta$ 是双射.
+    如果 $\theta([\gamma_1])=\theta([\gamma_2])$, 则对于任意 $f\in C^\infty_p$, 都有 $v_1(f)=v_2(f)$.
+    我们不妨选取分量函数 $\phi^i$, 其中 $(U,\phi)$ 是包含 $p$ 的一个容许坐标卡, $\phi=(\phi^1,\ldots,\phi^m)$. 则
+    \begin{align*}
+        \frac{\d}{\d t}(\phi^i\circ\gamma_1(t))\Big|_{t=0}&=\frac{\d}{\d t}(\phi^i\circ\gamma_2(t))\Big|_{t=0}
+    \end{align*}
+    对所有分量成立, 从而对导数向量 $\dfrac{\d}{\d t}(\phi\circ\gamma)\Big|_{t=0}$ 成立. 因此由定义 $[\gamma_1]=[\gamma_2]$. 
+    这说明 $\theta$ 是单射. 
+    
+    另一方面, 对于任意 $v\in T_pM$, 我们仍然可以选取一个包含 $p$ 的容许坐标卡 $(U,\phi)$,
+    其中 $\phi=(\phi^1,\ldots,\phi^m)$, 则对于任意 $i=1,\ldots,m$, 都有 $v(\phi^i)\in\R$. 因此我们可以定义
+    \[\sigma(t)=(\phi^1(p)+t\cdot v(\phi^1),\ldots,\phi^m(p)+t\cdot v(\phi^m))\]
+    显然 $\phi(U)$ 是 $\R^m$ 中的一个开集且 $\sigma(0)=\phi(p)$.
+    因此对于充分小的 $(-\epsilon,\epsilon)$, $t\in(-\epsilon,\epsilon)$ 时必然有 $\sigma(t)\in\phi(U)$. 因此我们可以定义
+    \[\gamma(t)=\phi^{-1}(\sigma(t))\]
+    使得 $\gamma(0)=p$, 从而 $\gamma\in\mathcal S_p$. 并且对于任意 $f\in C^\infty_p$, 都有
+    \begin{align*}
+        \theta([\gamma])(f)&=\frac{\d}{\d t}(f\circ\gamma(t))\Big|_{t=0} &\text{定义}\\
+        &=\frac{\d}{\d t}(f\circ\phi^{-1}\circ\sigma(t))\Big|_{t=0} &\sigma\,\text{的定义}\\
+        &=\sum_{i=1}^m\left(\frac{\d}{\d t}(\sigma^i(t))\Big|_{t=0}\cdot\frac{\partial f}{\partial \phi^i}(p)\right)
+        &\text{链式法则}, \frac{\del f}{\del \phi^i}(p):=\frac{\del(f\circ\phi^{-1})}{\del x^i}(\phi(p))\\
+        &=\sum_{i=1}^m\left(v(\phi^i)\cdot\frac{\partial f}{\partial \phi^i}(p)\right) &\sigma\,\text{的定义}
+    \end{align*}
+    证明的关键在于证明
+    \[\sum_{i=1}^m\left(v(\phi^i)\cdot\frac{\del f}{\del\phi^i}(p)\right)=v(f)\]
+    不妨设 $\R^m\to\R$ 的函数 $\hat f=f\circ\phi^{-1}$, 则由Hadamard引理[\ref{lem:hadamard}], 有
+    \[\hat f(x)=\hat f(\phi(p))+\sum_{i=1}^m(x^i-\phi^i(p))\cdot g_i(x)\tag{I}\]
+    其中 $g_i:\phi(U)\to\R$ 是 $C^\infty$ 函数, 并且
+    \[g_i(\phi(p))=\frac{\partial \hat f}{\partial x^i}(\phi(p))=\frac{\partial f}{\partial \phi^i}(p)\]
+    将 (I) 拉回到 $U$, 令 $x=\phi(q)$, 则对于任意 $q\in U$, 有
+    \[f(q)=f(p)+\sum_{i=1}^m(\phi^i(q)-\phi^i(p))\cdot (g_i\circ\phi)(q)\tag{II}\]
+    将 $v$ 作用在 (II) 上, 则由线性性,
+    \[v(f)=v(f(p))+\sum_{i=1}^m v\left((\phi^i(q)-\phi^i(p))\cdot (g_i\circ\phi)\right)\tag{III}\]
+    由于 $f(p)$ 是常数, 显然 $v(f(p))=0$. 由Leibniz律,
+    \[v\left((\phi^i(q)-\phi^i(p))\cdot (g_i\circ\phi)\right)=(\underbrace{\phi^i(p)-\phi^i(p)}_0)\cdot v(g_i\circ\phi)+(g_i\circ\phi)(p)\cdot v(\phi^i-\phi^i(p))\]
+    由于 $v(\phi^i-\phi^i(p))=v(\phi^i)$, 上式等于
+    \[v(f)=\sum_{i=1}^m{v(\phi^i)\cdot (g_i\circ\phi)(p)}\]
+    代入 $g_i$ 定义, 则
+    \[v(f)=\sum_{i=1}^m{\left(v(\phi^i)\cdot\frac{\partial f}{\partial \phi^i}(p)\right)}\]
+    至此, $\theta$ 是满射. 因此 $\theta$ 是双射. 这就证明了定理.
 \end{proof}
