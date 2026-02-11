@@ -9,7 +9,7 @@ $(M,\mathcal O_M)$, 其中 $M$ 是一个拓扑流形, $\mathcal O_M$ 则是由 $
 
 但我们在本章中并不打算使用层论的语言, 因此我们将从一个更为直观的角度来定义微分流形.
 
-\section{微分流形}
+\section{基本概念}
 
 \subsection{定义微分流形}
 
@@ -693,7 +693,236 @@ $\d f\left(\frac{\del}{\del \phi^i}\right)$ 就是函数 $f$ 在点 $p$ 处沿�
 \end{align*}
 另一方面, 由切映射的定义, 有
 \[T_pf\left(\frac{\del}{\del\phi^i}\Big|_p\right)(g)=\frac{\del}{\del\phi^i}\Big|_p(g\circ f)\]
-展开定义得
-\[\frac{\del}{\del\phi^i}\Big|_p(g\circ f)=\sum_{j=1}^n{\frac{\del(g\circ f\circ\phi^{-1})^j}{\del x^i}\Big|_{\phi(p)}}\]
-由链式法则, 上式等价于
-\[\sum_{j=1}^n{\frac{\del g}{\del x^i}\Big|_{f(p)}\cdot\frac{\del(f\circ\phi^{-1})^j}{\del x^i}\Big|_{\phi(p)}}\]
+函数 $g\circ f$ 是 $M\to\R$ 的光滑函数, 在局部坐标下,
+其可写为
+\[(g\circ f)(\phi^1,\ldots,\phi^m)=g(\psi^1(f(\phi^1,\ldots,\phi^m)),\ldots,\psi^n(f(\phi^1,\ldots,\phi^m)))\]
+从而由链式法则, 有
+\[\frac{\del(g\circ f)}{\del\phi^i}=\sum_{j=1}^n{\frac{\del g}{\del\psi^j}\Big|_{f(p)}\cdot\frac{\del(\psi^j\circ f)}{\del\phi^i}\Big|_{p}}\]
+这就证明了
+\[A_i^j=\frac{\del(\psi^j\circ f)}{\del\phi^i}\Big|_p\]
+从而切映射对应的矩阵表示就是
+\[\begin{pmatrix}
+    \dfrac{\del(\psi^1\circ f)}{\del \phi^1}\Big|_p&\cdots&\dfrac{\del(\psi^1\circ f)}{\del \phi^m}\Big|_p\\
+    \vdots&\ddots&\vdots\\
+    \dfrac{\del(\psi^n\circ f)}{\del \phi^1}\Big|_p&\cdots&\dfrac{\del(\psi^n\circ f)}{\del \phi^m}\Big|_p
+\end{pmatrix}\]
+这就是我们熟悉的Jacobian矩阵. 他也可以视为是函数 $f$ 在点 $p$ 处的微分, 因此我们也可以将切映射 $T_pf$ 看作是光滑映射 $f$ 在点 $p$ 处的微分.
+这也就说明了下面的结论
+
+\begin{theorem}[切映射的Jacobian矩阵]
+    设 $f:M\to N$ 是光滑映射, $p\in M$, 
+    容许坐标卡 $(U,\phi)$ 和 $(V,\psi)$ 分别包含 $p$ 和 $f(p)$, 其中 $\phi=(\phi^1,\ldots,\phi^m)$, $\psi=(\psi^1,\ldots,\psi^n)$,
+    若选定基
+    \[\set{\frac{\del}{\del \phi^1}\Big|_p,\ldots,\frac{\del}{\del \phi^m}\Big|_p},\quad\set{\frac{\del}{\del \psi^1}\Big|_{f(p)},\ldots,\frac{\del}{\del \psi^n}\Big|_{f(p)}}\]
+    则切映射 $T_pf:T_pM\to T_{f(p)}N$ 可以表为矩阵
+    \[\begin{pmatrix}
+        \dfrac{\del(\psi^1\circ f)}{\del \phi^1}\Big|_p&\cdots&\dfrac{\del(\psi^1\circ f)}{\del \phi^m}\Big|_p\\
+        \vdots&\ddots&\vdots\\
+        \dfrac{\del(\psi^n\circ f)}{\del \phi^1}\Big|_p&\cdots&\dfrac{\del(\psi^n\circ f)}{\del \phi^m}\Big|_p
+    \end{pmatrix}\]
+\end{theorem}
+
+当然, 我们也可以定义余切映射:
+
+\begin{definition}[余切映射]
+    设 $f:M\to N$ 是光滑映射, 则对于任意 $p\in M$, 都可以定义映射 $T^*_pf:T^*_{f(p)}N\to T^*_pM$.
+    定义为
+    \[T^*_pf(\alpha)(v)=\alpha(T_pf(v))\]
+    其中 $\alpha\in T^*_{f(p)}N$, $v\in T_pM$. 余切映射 $T^*_pf$ 可以看作是切映射 $T_pf$ 的对偶映射.
+\end{definition}
+
+不难验证, 其在对偶基
+\[\set{\d\psi^1,\ldots,\d\psi^n},\quad\set{\d\phi^1,\ldots,\d\phi^m}\]
+上的矩阵表达式仍然是切映射 $T_pf$ 的Jacobian矩阵
+\[\begin{pmatrix}
+    \dfrac{\del(\psi^1\circ f)}{\del \phi^1}\Big|_p&\cdots&\dfrac{\del(\psi^1\circ f)}{\del \phi^m}\Big|_p\\
+    \vdots&\ddots&\vdots\\
+    \dfrac{\del(\psi^n\circ f)}{\del \phi^1}\Big|_p&\cdots&\dfrac{\del(\psi^n\circ f)}{\del \phi^m}\Big|_p
+\end{pmatrix}\]
+因此余切映射 $T^*_pf$ 也可以看作是函数 $f$ 在点 $p$ 处的微分. (好神奇)
+
+\begin{theorem}[余切映射的Jacobian矩阵]
+    设 $f:M\to N$ 是光滑映射, $p\in M$, 
+    容许坐标卡 $(U,\phi)$ 和 $(V,\psi)$ 分别包含 $p$ 和 $f(p)$, 其中 $\phi=(\phi^1,\ldots,\phi^m)$, $\psi=(\psi^1,\ldots,\psi^n)$,
+    若选定基
+    \[\set{\d\psi^1,\ldots,\d\psi^n},\quad\set{\d\phi^1,\ldots,\d\phi^m}\]
+    则余切映射 $T^*_pf:T^*_{f(p)}N\to T^*_pM$ 可以表为矩阵
+    \[\begin{pmatrix}
+        \dfrac{\del(\psi^1\circ f)}{\del \phi^1}\Big|_p&\cdots&\dfrac{\del(\psi^1\circ f)}{\del \phi^m}\Big|_p\\
+        \vdots&\ddots&\vdots\\
+        \dfrac{\del(\psi^n\circ f)}{\del \phi^1}\Big|_p&\cdots&\dfrac{\del(\psi^n\circ f)}{\del \phi^m}\Big|_p
+    \end{pmatrix}\]
+\end{theorem}
+
+由于我们将切映射和余切映射视为一种微分, 自然会问它满足多少微分的性质?
+事实上, 切映射和余切映射满足下述的链式法则:
+
+\begin{theorem}[(余)切映射的链式法则]
+    设 $f:X\to Y$ 和 $g:Y\to Z$ 是光滑映射,
+    则符合映射到切映射和余切映射满足:
+    \begin{enumerate}
+        \item $T_p(g\circ f)=T_{f(p)}g\circ T_pf:T_pX\to T_{g(f(p))}Z,\quad\forall p\in X$;
+        \item $T^*_p(g\circ f)=T^*_pf\circ T^*_{f(p)}g:T^*_{g(f(p))}Z\to T^*_pX,\quad\forall p\in X$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    只证第一种, 另一种自明. 设 $p\in X$, 则对于任意 $v\in T_pX$ 和 $h\in C^\infty_{g(f(p))}$, 都有
+    \begin{align*}
+        T_{f(p)}g\circ T_pf(v)(h)&=T_{f(p)}g(T_pf(v))(h) &\text{定义}\\
+        &=T_pf(v)(h\circ g) &\text{定义}\\
+        &=v((h\circ g)\circ f) &\text{定义}\\
+        &=v(h\circ(g\circ f)) &\text{函数复合的结合律}\\
+        &=T_p(g\circ f)(v)(h) &\text{定义}
+    \end{align*}
+    这就证明了 $T_p(g\circ f)=T_{f(p)}g\circ T_pf$.
+\end{proof}
+
+\section{基本构造}
+
+\subsection{范畴 \texorpdfstring{$\Diff$}{Diff}}
+
+我们已经定义了微分流形, 切空间, 余切空间, 切映射, 余切映射等基本概念. 这些概念构成了一个非常重要的范畴 $\Diff$, 其对象是微分流形, 而态射是光滑映射.
+我们来考虑下放范畴论意义下的一些构造.
+
+\subsubsection{积}
+在范畴论中, 积是一系列投影态射的极限. 是一个非常经典的泛性质构造,
+\begin{figure}[htbp]
+    \centering
+        \begin{tikzcd}[cramped,row sep=large]
+        C \\
+        & P & B \\
+        & A
+        \arrow["{\exists!}"{description}, dashed, from=1-1, to=2-2]
+        \arrow[curve={height=-6pt}, from=1-1, to=2-3]
+        \arrow[curve={height=6pt}, from=1-1, to=3-2]
+        \arrow[from=2-2, to=2-3]
+        \arrow[from=2-2, to=3-2]
+    \end{tikzcd}
+    \caption{积的定义}
+\end{figure}
+
+{\bf 积} (product)的一般定义是对于一族离散的对象 $\set{X_i}$, 由上图泛性质刻画的对象 $P$ 和态射 $p_i$, 并且对于任何其他
+对象 $C$ 和态射 $f_i:C\to X_i$, 都存在唯一的态射 $f:C\to P$, 使得 $p_i\circ f=f_i$. 上图所示中
+则是二元的情况. 这对于流形的讨论而言已经足够了, 因为我们可以通过二元积来构造任意有限多元的积, 而 $\Diff$ 中存在有限积
+却不存在无限积.
+
+\begin{definition}[积流形]
+    设 $M$ 和 $N$ 是微分流形, 则它们的{\bf 积流形} (product manifold) $M\times N$ 是一个微分流形, 其底空间为拓扑积 $M\times N$,
+    微分结构由全体 $(U\times V, \phi\times \psi)$ 生成, 其中 $(U,\phi)$ 和 $(V,\psi)$ 分别是 $M$ 和 $N$ 的坐标图.
+    $\phi\times\psi$ 是 $U\times V$ 到 $\R^m\times\R^n$ 的映射, 定义为
+    \[\phi\times\psi(p,q)=(\phi(p),\psi(q))\]
+    其中 $p\in U$, $q\in V$.
+\end{definition}
+
+对于流形 $M,N$, 积流形 $M\times N$ 到 $M$ 和 $N$ 自然地有投影映射 $\pi_M:M\times N\to M$ 和 $\pi_N:M\times N\to N$, 定义为
+\begin{align*}
+    \pi_M(p,q)&=p\\
+    \pi_N(p,q)&=q
+\end{align*}
+这两个映射都是光滑的. 下面的定理表明, 积流形 $M\times N$ 和投影映射 $\pi_M$ 和 $\pi_N$ 满足积的泛性质.
+
+\begin{theorem}[积流形的泛性质]
+    设 $M,N$ 是微分流形, 则积流形 $M\times N$ 和投影映射 $\pi_M$ 和 $\pi_N$ 满足积的泛性质.
+    即对于任意微分流形 $P$ 和光滑映射 $f:P\to M$, $g:P\to N$, 都存在唯一的光滑映射 $h:P\to M\times N$, 使得 $\pi_M\circ h=f$ 和 $\pi_N\circ h=g$.
+\end{theorem}
+\begin{proof}
+    设 $P$ 是一个微分流形, $f:P\to M$ 和 $g:P\to N$ 是光滑映射, 则定义映射 $h:P\to M\times N$ 为
+    \[h(p)=(f(p),g(p))\]
+    则对于任意 $p\in P$, 都有
+    \begin{align*}
+        \pi_M\circ h(p)&=\pi_M(f(p),g(p)) &\text{定义}\\
+        &=f(p) &\text{定义}
+    \end{align*}
+    同样的, 也有 $\pi_N\circ h=g$. 因此 $h$ 满足 $\pi_M\circ h=f$ 和 $\pi_N\circ h=g$. 接下来我们来证明 $h$ 是唯一的. 设 $h':P\to M\times N$ 是另一个满足 $\pi_M\circ h'=f$ 和 $\pi_N\circ h'=g$ 的映射, 则对于任意 $p\in P$, 都有
+    \begin{align*}
+        h'(p)&=(\pi_M(h'(p)), \pi_N(h'(p))) &\text{定义}\\
+        &=(f(p), g(p)) &\text{定义}\\
+        &=h(p) &\text{定义}
+    \end{align*}
+    这就证明了 $h=h'$. 因此 $h$ 是唯一的. 这就证明了积流形的泛性质.
+\end{proof}
+
+\subsubsection{余积}
+
+{\bf 余积} (coproduct) 是积的对偶概念, 是一系列包含态射的余极限. 其定义如下:
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzcd}[cramped,row sep=large]
+        D \\
+        & Q & B \\
+        & A
+        \arrow["{\exists!}"{description}, dashed, from=2-2, to=1-1]
+        \arrow[curve={height=6pt}, from=2-3, to=1-1]
+        \arrow[from=2-3, to=2-2]
+        \arrow[curve={height=-6pt}, from=3-2, to=1-1]
+        \arrow[from=3-2, to=2-2]
+    \end{tikzcd}
+    \caption{余积的定义}
+\end{figure}
+
+在集合论 $\Set$ 意义下, 积是Cartesian积, 余积是无交并. 类似的直觉告诉我们
+在 $\Diff$ 中, 余积应该是微分流形的无交并. 直观上看就是把两个流形放在一起, 让他们没有交集. 下面我们来正式定义 $\Diff$ 中的余积.
+
+\begin{definition}[余积流形]
+    设 $M$ 和 $N$ 是微分流形, 则他们的{\bf 余积流形} (coproduct manifold) $M\sqcup N$ 是一个微分流形, 其底空间为 $M$ 和 $N$ 的无交并, 微分结构由全体 $(U,\phi)$ 和 $(V,\psi)$ 生成, 其中 $(U,\phi)$ 和 $(V,\psi)$ 分别是 $M$ 和 $N$ 的坐标图.
+\end{definition}
+
+对于流形 $M,N$, 余积流形 $M\sqcup N$ 到 $M$ 和 $N$ 自然地有包含映射 $\iota_M:M\to M\sqcup N$ 和 $\iota_N:N\to M\sqcup N$, 定义为
+\begin{align*}
+    \iota_M(p)&=p\\
+    \iota_N(q)&=q
+\end{align*}
+这两个映射都是光滑的. 下面的定理表明, 余积流形 $M\sqcup N$ 和包含映射 $\iota_M$ 和 $\iota_N$ 满足余积的泛性质.
+\begin{theorem}[余积流形的泛性质]
+    设 $M,N$ 是微分流形, 则余积流形 $M\sqcup N$ 和包含映射 $\iota_M$ 和 $\iota_N$ 满足余积的泛性质.
+    即对于任意微分流形 $P$ 和光滑映射 $f:M\to P$, $g:N\to P$, 都存在唯一的光滑映射 $h:M\sqcup N\to P$, 使得 $h\circ \iota_M=f$ 和 $h\circ \iota_N=g$.
+\end{theorem}
+\begin{proof}
+    设 $P$ 是一个微分流形, $f:M\to P$ 和 $g:N\to P$ 是光滑映射, 则定义映射 $h:M\sqcup N\to P$ 为
+    \[h(x)=\begin{cases}
+        f(x), & x\in M\\
+        g(x), & x\in N
+    \end{cases}\]
+    则对于任意 $x\in M$, 都有
+    \begin{align*}
+        h\circ \iota_M(x)&=h(x) &\text{定义}\\
+        &=f(x) &\text{定义}
+    \end{align*}
+    同样的, 对于任意 $y\in N$, 都有 $h\circ \iota_N(y)=g(y)$. 因此 $h$ 满足 $h\circ \iota_M=f$ 和 $h\circ \iota_N=g$. 接下来我们来证明 $h$ 是唯一的. 设 $h':M\sqcup N\to P$ 是另一个满足 $h'\circ \iota_M=f$ 和 $h'\circ \iota_N=g$ 的映射, 则对于任意 $x\in M$, 都有
+    \begin{align*}
+        h'(x)&=h'\circ \iota_M(x) &\text{定义}\\
+        &=f(x) &\text{定义}\\
+        &=h(x) &\text{定义}
+    \end{align*}
+    同样的, 对于任意 $y\in N$, 都有 $h'(y)=h(y)$. 因此对于任意 $z\in M\sqcup N$, 都有 $h'(z)=h(z)$, 从而证明了 $h=h'$. 因此 $h$ 是唯一的. 这就证明了余积流形的泛性质.
+\end{proof}
+
+\subsubsection{范畴 \texorpdfstring{$\Diff_\bullet$}{Diff.}}
+
+如果你学过代数拓扑, 基本群函子 $\pi_1$
+是从 $\Top_\bullet\to\Grp$ 的函子, 其中 $\Top_\bullet$ 是带基点的拓扑空间范畴, $\Grp$ 是群范畴. 这里的 $\Top_\bullet$ 的对象是带基点的拓扑空间, 态射是保持基点的连续映射. 类似的, 在微分几何中, 我们也可以定义一个带基点的微分流形范畴 $\Diff_\bullet$, 其对象是带基点的微分流形, 态射是保持基点的光滑映射.
+
+\begin{definition}[基点微分流形]
+    一个{\bf 基点微分流形} (pointed manifold) 是一个二元组 $(M,p)$, 其中 $M$ 是一个微分流形,
+    $p\in M$ 是 $M$ 中的一个点. 设 $(M,p)$ 和 $(N,q)$ 是两个基点微分流形,
+    则一个{\bf 基点保持映射} (basepoint-preserving map) $f:(M,p)\to(N,q)$
+    是一个光滑映射 $f:M\to N$, 满足 $f(p)=q$.
+    
+    我们定义范畴 $\Diff_\bullet$ 的对象是基点微分流形, 态射是基点保持映射.
+\end{definition}
+
+显然存在一个遗忘函子 $U:\Diff_\bullet \to \Diff$, 其作用就是忽略基点 $(M,p)\mapsto M$.
+并且显然下面的遗忘函子图表是交换的
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzcd}[cramped,row sep=large]
+        {\mathsf{Diff}_\bullet} & {\mathsf{Diff}} \\
+        {\mathsf{Top}_\bullet} & {\mathsf{Top}}
+        \arrow["\text{忘基点}", from=1-1, to=1-2]
+        \arrow["\text{忘微分结构}"', from=1-1, to=2-1]
+        \arrow["\text{忘微分结构}", from=1-2, to=2-2]
+        \arrow["\text{忘基点}"', from=2-1, to=2-2]
+    \end{tikzcd}
+\end{figure}
+
+\subsection{函子 \texorpdfstring{$T_\bullet,T_\bullet^*$}{T.,T.*}}
