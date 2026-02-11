@@ -897,6 +897,10 @@ $\d f\left(\frac{\del}{\del \phi^i}\right)$ 就是函数 $f$ 在点 $p$ 处沿�
     同样的, 对于任意 $y\in N$, 都有 $h'(y)=h(y)$. 因此对于任意 $z\in M\sqcup N$, 都有 $h'(z)=h(z)$, 从而证明了 $h=h'$. 因此 $h$ 是唯一的. 这就证明了余积流形的泛性质.
 \end{proof}
 
+注意, 余积其实地位比较尴尬. 因为如果两个流形维数不同, 则他们的无交并就不是一个流形了 (虽然我们有时候将其归为广义的流形来定义余积).
+但如果两个流形维数相同, 则他们的无交并就是一个流形了. 因此余积的定义在 $\Diff$ 中是有条件的.
+我们可以说 $\Diff$ 存在有限积, 但不存在有限余积.
+
 \subsubsection{范畴 \texorpdfstring{$\Diff_\bullet$}{Diff.}}
 
 如果你学过代数拓扑, 基本群函子 $\pi_1$
@@ -925,4 +929,125 @@ $\d f\left(\frac{\del}{\del \phi^i}\right)$ 就是函数 $f$ 在点 $p$ 处沿�
     \end{tikzcd}
 \end{figure}
 
+我们也可以定义基点微分流形的积和余积, 以及基点保持映射的积和余积.
+例如积的构造如下:
+\begin{definition}[基点积流形]
+    设 $(M,p)$ 和 $(N,q)$ 是两个基点微分流形, 则他们的{\bf 基点积流形} (pointed product manifold) $(M\times N, (p,q))$ 是一个基点微分流形, 其中 $M\times N$ 是 $M$ 和 $N$ 的积流形, $(p,q)\in M\times N$ 是 $p\in M$ 和 $q\in N$ 的有序对.
+\end{definition}
+
+然而, 在基点微分流形的情况下, 余积的构造就不太好定义了. 因为我们需要一个基点,
+但是在余积的情况下, 我们无法确定基点应该是什么. 因此我们无法定义基点微分流形的余积.
+事实上, $\Diff_\bullet$ 中不存在余积. 这就说明了 $\Diff_\bullet$ 和 $\Diff$ 的一个重要区别.
+
 \subsection{函子 \texorpdfstring{$T_\bullet,T_\bullet^*$}{T.,T.*}}
+
+将切空间和余切空间的构造视为一种函子是一种非常简单的但又非常有用的视角. 
+
+\begin{definition}[切空间函子]
+    设函子 $T_\bullet:\Diff_\bullet\to\Vect_\R$ 定义为:
+    \begin{enumerate}
+        \item[对象.] 
+        \begin{align*}
+            T_\bullet:\ob(\Diff_\bullet)&\to\ob(\Vect_\R)\\
+            (M,p)&\mapsto T_pM
+        \end{align*}
+        \item[态射.] 
+        \begin{align*}
+            T:\Hom_{\Diff_\bullet}((M,p),(N,q))&\to\Hom_{\Vect_\R}(T_pM,T_qN)\\
+            f&\mapsto T_pf
+        \end{align*}
+    \end{enumerate}
+
+    即, 作用在对象上时表示流形的切空间. 作用在态射上时表示光滑映射的切映射.
+\end{definition}
+
+我们可以验证其具有函子性
+
+\begin{theorem}
+    切空间函子 $T_\bullet:\Diff_\bullet\to\Vect_\R$ 满足函子性, 即对于任意的基点保持映射 $f:(M,p)\to(N,q)$ 和 $g:(N,q)\to(P,r)$, 都有
+    \begin{enumerate}
+        \item $T_\bullet(\id_{(M,p)})=\id_{T_pM}$;
+        \item $T_\bullet(g\circ f)=T_\bullet(g)\circ T_\bullet(f)$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    设 $f:(M,p)\to(N,q)$ 和 $g:(N,q)\to(P,r)$ 是两个基点保持映射, 则对于任意 $v\in T_pM$ 和 $h\in C^\infty_r$, 都有
+    \begin{align*}
+        T_\bullet(g\circ f)(v)(h)&=v(h\circ(g\circ f)) &\text{定义}\\
+        &=v((h\circ g)\circ f) &\text{函数复合的结合律}\\
+        &=T_\bullet(f)(v)(h\circ g) &\text{定义}\\
+        &=T_\bullet(g)(T_\bullet(f)(v))(h) &\text{定义}
+    \end{align*}
+    这就证明了 $T_\bullet(g\circ f)=T_\bullet(g)\circ T_\bullet(f)$. 同样的, 对于任意 $v\in T_pM$ 和 $h\in C^\infty_p$, 都有
+    \begin{align*}
+        T_\bullet(\id_{(M,p)})(v)(h)&=v(h\circ \id_M) &\text{定义}\\
+        &=v(h) &\text{函数复合的单位律}\\
+        &=\id_{T_pM}(v)(h) &\text{定义}
+    \end{align*}
+    这就证明了 $T_\bullet(\id_{(M,p)})=\id_{T_pM}$. 因此切空间函子满足函子性.
+\end{proof}
+
+$\Diff_\bullet$ 和 $\Vect_\R$ 之中都有积, 则我们自然会想知道切空间函子 $T_\bullet$ 是否保持积.
+
+\begin{theorem}[切空间函子保持积]
+    切空间函子 $T_\bullet:\Diff_\bullet\to\Vect_\R$ 保持积, 即对于任意的基点微分流形 $(M,p)$ 和 $(N,q)$, 都有
+    \[T_\bullet((M,p)\times(N,q))\cong T_\bullet(M,p)\times T_\bullet(N,q)\]
+    并且存在典范的同构映射
+    \begin{align*}
+        T_{(p,q)}M\times N&\longrightarrow T_pM\times T_qN\\
+        v&\longmapsto\big(T_p\pi_M(v), T_q\pi_N(v)\big)\\
+        \left(v:g\mapsto u(g(-,q))+w(g(p,-)) \right)&\longmapsfrom (u,w)
+    \end{align*}
+\end{theorem}
+\begin{proof}
+    设 $(M,p)$ 和 $(N,q)$ 是两个基点微分流形, 则积流形 $(M\times N, (p,q))$ 的切空间 $T_{(p,q)}(M\times N)$ 的元素 $v$ 是一个线性映射, 满足 Leibniz 法则.
+    由于积流形的图册是由 $M$ 和 $N$ 的图册生成的, 因此对于任意 $g\in C^\infty_{(p,q)}$, 都可以写成 $g(m,n)=u(m)+w(n)$ 的形式, 其中 $u\in C^\infty_p$ 和 $w\in C^\infty_q$. 从而对于任意 $v\in T_{(p,q)}(M\times N)$, 都有
+    \begin{align*}
+        v(g)&=v(u(-)+w(-)) &\text{定义}\\
+        &=v(u(-))+v(w(-)) &\text{线性性}\\
+        &=T_p\pi_M(v)(u)+T_q\pi_N(v)(w) &\text{定义}
+    \end{align*}
+    这就证明了存在一个映射
+    \begin{align*}
+        T_{(p,q)}M\times N&\longrightarrow T_pM\times T_qN\\
+        v&\longmapsto\big(T_p\pi_M(v), T_q\pi_N(v)\big)
+    \end{align*}
+    同样的, 对于任意 $(u,w)\in T_pM\times T_qN$, 都可以定义一个映射 $v:g\mapsto u(g(-,q))+w(g(p,-))$, 从而得到一个映射
+    \begin{align*}
+        T_pM\times T_qN&\longrightarrow T_{(p,q)}M\times N\\
+        (u,w)&\longmapsto \left(v:g\mapsto u(g(-,q))+w(g(p,-)) \right)
+    \end{align*}
+    可以验证这两个映射是互逆的. 因此存在一个典范的同构映射
+    \begin{align*}
+        T_{(p,q)}M\times N&\longrightarrow T_pM\times T_qN\\
+        v&\longmapsto\big(T_p\pi_M(v), T_q\pi_N(v)\big)\\
+        \left(v:g\mapsto u(g(-,q))+w(g(p,-)) \right)&\longmapsfrom (u,w)
+    \end{align*}
+    从而证明了 $T_\bullet((M,p)\times(N,q))\cong T_\bullet(M,p)\times T_\bullet(N,q)$. 因此切空间函子保持积.
+\end{proof}
+
+下面的推论可以由线性代数的结论直接推出 \sout{你绕这么大圈只是为了证明这个结论吗?}
+
+\begin{corollary}
+    设 $M,N$ 是两个微分流形, 则 $\dim M\times N=\dim M+\dim N$.
+\end{corollary}
+
+同样的, 我们也可以定义余切空间函子.
+
+\begin{definition}[余切空间函子]
+    设函子 $T_\bullet^*:\Diff_\bullet\to\Vect_\R$ 定义为:
+    \begin{enumerate}
+        \item[对象.] 
+        \begin{align*}
+            T_\bullet^*:\ob(\Diff_\bullet)&\to\ob(\Vect_\R)\\
+            (M,p)&\mapsto T_p^*M
+        \end{align*}
+        \item[态射.] 
+        \begin{align*}
+            T^*:\Hom_{\Diff_\bullet}((M,p),(N,q))&\to\Hom_{\Vect_\R}(T_q^*N,T_p^*M)\\
+            f&\mapsto T^*_pf
+        \end{align*}
+    \end{enumerate}
+
+    即, 作用在对象上时表示流形的余切空间. 作用在态射上时表示光滑映射的余切映射.
+\end{definition}
