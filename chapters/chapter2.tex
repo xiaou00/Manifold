@@ -562,3 +562,138 @@ $v(f)$ 可以看作是函数 $f$ 在点 $p$ 处沿着切向量 $v$ 的方向的�
     \[\d f(v)=\langle\d f,v\rangle=v(f)\]
     的切向量.
 \end{definition}
+
+由于 $T^*_pM$ 是 $T_pM$ 的对偶空间, 因此可以定义其上的一组对偶基.
+回顾对偶基的定义, 选定一个包含 $p$ 的容许坐标卡 $(U,\phi)$, 其中 $\phi=(\phi^1,\ldots,\phi^m)$, 则切空间 $T_pM$ 上的一组基为
+\[\set{\frac{\del}{\del \phi^1}\Big|_p,\ldots,\frac{\del}{\del \phi^m}\Big|_p}\]
+因此, 余切空间 $T^*_pM$ 上的一组对偶基 $\set{e^1,\ldots,e^m}$ 满足
+\begin{align*}
+    \left\langle e^i,\frac{\del}{\del \phi^j}\Big|_p\right\rangle&=\delta^i_j
+\end{align*}
+其中 $\delta^i_j$ 是Kronecker delta, 当 $i=j$ 时 $\delta^i_j=1$, 否则 $\delta^i_j=0$. 由微分的定义, 上式等价于
+\begin{align*}
+    e^i\left(\frac{\del}{\del \phi^j}\Big|_p\right)&=\delta^i_j
+\end{align*}
+显然
+\[
+    \left\langle \d\phi^i,\frac{\del}{\del \phi^j}\Big|_p\right\rangle
+    =\d \phi^i\left(\frac{\del}{\del \phi^j}\Big|_p\right)
+    =\frac{\del \phi^i}{\del \phi^j}\Big|_p
+    =\delta^i_j
+\]
+由对偶基的定义, $\set{\d\phi^1,\ldots,\d\phi^m}$ 就是 $T^*_pM$ 上的一组对偶基.
+这说明余切空间 $T^*_pM$ 上的一组对偶基可以由坐标函数的微分构成. 这也就自然地说明了下面的定理
+
+\begin{theorem}
+    设 $M$ 是 $m$-微分流形, $p\in M$, 则点 $p$ 处的余切空间 $T^*_pM$ 上的一组基可以由包含 $p$ 的一个容许坐标卡 $(U,\phi)$ 的坐标函数的微分构成, 即
+    \[\set{\d\phi^1,\ldots,\d\phi^m}\]
+\end{theorem}
+
+下面的定理揭示了余切向量的线性表示性质 
+
+\begin{theorem}
+    设 $M$ 是 $m$-微分流形, $p\in M$, 选取 $p$ 附近的容许坐标卡 $(U,\phi)$,
+     $\alpha\in T^*_pM$, 则 $\alpha$ 可以唯一表示为
+    \[\alpha=\sum_{i=1}^m{\alpha\left(\frac{\del}{\del\phi^i}\right)\cdot\d\phi^i}\] 
+\end{theorem}
+\begin{proof}
+    由于对任意的 $v\in T_pM$, 都有
+    \[v=\sum_{i=1}^m{v^i\cdot\frac{\del}{\del\phi^i}}\]
+    有
+    \[\alpha(v)=\alpha\left(\sum_{i=1}^m{v^i\cdot\frac{\del}{\del\phi^i}}\right)
+    =\sum_{i=1}^m{v^i\cdot\alpha\left(\frac{\del}{\del\phi^i}\right)}\]
+    由于
+    \[v^i=v(\phi^i)=\d\phi^i(v)\]
+    上式等价于
+    \[\alpha(v)=\sum_{i=1}^m{\alpha\left(\frac{\del}{\del\phi^i}\right)\cdot\d\phi^i(v)}\]
+    从而
+    \[\alpha=\sum_{i=1}^m{\alpha\left(\frac{\del}{\del\phi^i}\right)\cdot\d\phi^i}\]
+\end{proof}
+
+\begin{corollary}
+    设 $M$ 是 $m$-微分流形, $p\in M$, 选取包含 $p$ 的容许坐标卡 $(U,\phi)$,
+    则点 $p$ 处的余切向量 $\d f$ 满足
+    \[\d f|_p=\sum_{i=1}^m{\frac{\del f}{\del \phi^i}\Big|_p\cdot\d\phi^i}\]
+\end{corollary}
+
+这个定理表明, 我们可以完全以全微分的视角来理解余切向量, 余切向量 $\d f$ 的分量
+$\d f\left(\frac{\del}{\del \phi^i}\right)$ 就是函数 $f$ 在点 $p$ 处沿着坐标函数 $\phi^i$ 的方向的偏导数 $\dfrac{\del f}{\del \phi^i}\Big|_p$.
+
+\subsection{切映射与余切映射}
+
+(余)切映射是微分几何中非常重要的概念, 他们描述了微分流形之间的映射在切空间和余切空间上的诱导映射.
+说白了就是对流形之间的映射进行微分.
+
+\begin{definition}[切映射]
+    设 $f:M\to N$ 是光滑映射. 首先有一个自然的映射
+    \begin{align*}
+        f^*:C^\infty_{f(p)}&\to C^\infty_p\\
+        g&\mapsto g\circ f
+    \end{align*}
+    这样对任何切向量 $v\in T_pM$, 都可以定义映射
+    \begin{align*}
+        T_pf:T_pM&\to T_{f(p)}N\\
+        v&\mapsto v\circ f^*
+    \end{align*}
+    就称之为点 $p$ 处的{\bf 切映射} (tangent map). 其本质上是将切向量
+    $v$ 作用在函数 $g\in C^\infty_{f(p)}$ 上的结果 $v(g\circ f)$ 看作是切向量 $T_pf(v)$ 作用在函数 $g$ 上的结果.
+\end{definition}
+
+用一句话概括, 就是 $T_pf(v)(g)=v(g\circ f)$.
+
+\begin{theorem}
+    切映射是线性的, 即对于任意 $v,w\in T_pM$ 和 $\lambda\in\R$, 都有
+    \[T_pf(v+w)=T_pf(v)+T_pf(w)\]
+\end{theorem}
+\begin{proof}
+    设 $g\in C^\infty_{f(p)}$, 则
+    \begin{align*}
+        T_pf(v+w)(g)&=(v+w)(g\circ f) &\text{定义}\\
+        &=v(g\circ f)+w(g\circ f) &\text{线性性}\\
+        &=T_pf(v)(g)+T_pf(w)(g) &\text{定义}
+    \end{align*}
+    这就证明了切映射的可加性. 对于其次性, 则
+    \begin{align*}
+        T_pf(\lambda v)(g)&=(\lambda v)(g\circ f) &\text{定义}\\
+        &=\lambda v(g\circ f) &\text{线性性}\\
+        &=\lambda T_pf(v)(g) &\text{定义}
+    \end{align*}
+    这就证明了切映射的其次性. 因此切映射是线性的.
+\end{proof}
+
+既然切映射是从 $T_pM$ 到 $T_{f(p)}N$ 的线性映射, 两个
+空间都是有限维的, 我们自然会想用矩阵分解该切映射来窥探其本质.
+选取包含 $p$ 的一个容许坐标卡 $(U,\phi)$, 其中 $\phi=(\phi^1,\ldots,\phi^m)$, 以及包含 $f(p)$ 的一个容许坐标卡 $(V,\psi)$, 其中 $\psi=(\psi^1,\ldots,\psi^n)$,
+则切空间 $T_pM$ 和 $T_{f(p)}N$ 上的基分别为
+\[\set{\frac{\del}{\del \phi^1}\Big|_p,\ldots,\frac{\del}{\del \phi^m}\Big|_p}\]
+和
+\[\set{\frac{\del}{\del \psi^1}\Big|_{f(p)},\ldots,\frac{\del}{\del \psi^n}\Big|_{f(p)}}\]
+线性映射完全由其在基底上的表达式决定, 因此我们来计算 $T_pf$ 在基底上的表达式.
+对于任意 $i=1,\ldots,m$, 设
+\[T_pf\left(\frac{\del}{\del \phi^i}\Big|_p\right)=\sum_{j=1}^n{A_i^j\frac{\del}{\del \psi^j}\Big|_{f(p)}}\tag{I}\]
+写成矩阵乘法的形式, 则
+\[\begin{pmatrix}
+    T_pf\left(\dfrac{\del}{\del \phi^1}\Big|_p\right)\\
+    \vdots\\
+    T_pf\left(\dfrac{\del}{\del \phi^m}\Big|_p\right)
+\end{pmatrix}=\begin{pmatrix}
+    A_1^1&\cdots&A_1^n\\
+    \vdots&\ddots&\vdots\\
+    A_m^1&\cdots&A_m^n
+\end{pmatrix}\begin{pmatrix}
+    \dfrac{\del}{\del \psi^1}\Big|_{f(p)}\\
+    \vdots\\
+    \dfrac{\del}{\del \psi^n}\Big|_{f(p)}
+\end{pmatrix}\]
+
+回到 (I), 则对于任意 $g\in C^\infty_{f(p)}$, 都有
+\begin{align*}
+    T_pf\left(\frac{\del}{\del \phi^i}\Big|_p\right)(g)&=\left(\sum_{j=1}^n{A_i^j\frac{\del}{\del \psi^j}\Big|_{f(p)}}\right)(g) &\text{定义}\\
+    &=\sum_{j=1}^n{A_i^j\cdot\frac{\del g}{\del \psi^j}\Big|_{f(p)}} &\text{定义}
+\end{align*}
+另一方面, 由切映射的定义, 有
+\[T_pf\left(\frac{\del}{\del\phi^i}\Big|_p\right)(g)=\frac{\del}{\del\phi^i}\Big|_p(g\circ f)\]
+展开定义得
+\[\frac{\del}{\del\phi^i}\Big|_p(g\circ f)=\sum_{j=1}^n{\frac{\del(g\circ f\circ\phi^{-1})^j}{\del x^i}\Big|_{\phi(p)}}\]
+由链式法则, 上式等价于
+\[\sum_{j=1}^n{\frac{\del g}{\del x^i}\Big|_{f(p)}\cdot\frac{\del(f\circ\phi^{-1})^j}{\del x^i}\Big|_{\phi(p)}}\]
